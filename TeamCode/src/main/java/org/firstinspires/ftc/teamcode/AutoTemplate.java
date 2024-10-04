@@ -14,6 +14,12 @@ public class AutoTemplate extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
+            robot.driving.horizontal(1);
+            while(!robot.checkTape()){
+                telemetry.addData("tape","not found");
+                telemetry.update();
+                robot.driving.horizontal(0.5f);
+            }
             //AUTON CODE HERE
         }
 
