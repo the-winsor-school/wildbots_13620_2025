@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode.driving;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.driving.IDriving;
-
-public class StrafeDrive implements IDriving {
+public class StrafeDrive {
 
     private DcMotor rf;
     private DcMotor rb;
