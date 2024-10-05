@@ -8,6 +8,8 @@ public class AutoTemplate extends LinearOpMode {
 
     Robot robot;
 
+    LinearOpMode opMode;
+
     public void runOpMode() throws InterruptedException {
         robot = new Robot(this);
 
@@ -15,12 +17,13 @@ public class AutoTemplate extends LinearOpMode {
 
         if (opModeIsActive()) {
             robot.driving.horizontal(1);
-            while(!robot.checkTape()){
+            while(!robot.checkEndTape()){
                 telemetry.addData("tape","not found");
                 telemetry.update();
                 robot.driving.horizontal(0.5f);
+                opMode.sleep(20);
             }
-            //AUTON CODE HERE
+            robot.driving.stop();
         }
 
     }

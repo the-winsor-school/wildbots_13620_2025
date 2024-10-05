@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -31,6 +32,8 @@ public class Robot {
 
     private LinearOpMode opMode;
 
+    private ColorSensor color;
+
     /**
      * @param opMode pass by writing: new Robot(this);
      */
@@ -43,6 +46,8 @@ public class Robot {
         rb = map.tryGet(DcMotor.class, "rb");
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
+
+        color = map.tryGet(ColorSensor.class, "color");
 
         driving = new StrafeDrive(rf, rb, lf, lb);
     }
@@ -62,5 +67,34 @@ public class Robot {
         BACK
     }
 
+    public boolean checkRedTape() {
+        if (color.red()  > 350)
+            return true;
+        return false;
+    }
+
+    public boolean checkBlueTape() {
+        if (color.blue() > 500)
+            return true;
+        return false;
+    }
+
+    public boolean checkWhiteTape() {
+        if (color.red() > 500 && color.blue() > 500 && color.green() > 500)
+            return true;
+        return false;
+    }
+
+    public boolean checkEndTape() {
+        if (checkBlueTape() || checkRedTape())
+            return true;
+        return false;
+    }
+
+    public boolean checkANYTape() {
+        if (checkEndTape() || checkWhiteTape())
+            return true;
+        return false;
+    }
 
 }
