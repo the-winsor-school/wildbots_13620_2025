@@ -1,19 +1,32 @@
 package org.firstinspires.ftc.teamcode;
-//package org.firstinspires.ftc.teamcode.Arm;
+package org.firstinspires.ftc.teamcode.Arm;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 
 public class Claw {
 
-    public CRServo right;
-    public CRServo left;
+    public CRServo servo;
 
-    public Claw(CRServo rightServo, CRServo leftServo) {
-        right = rightServo;
-        left = leftServo;
+    public Claw(CRServo clawServo) {
+        servo = clawServo;
+    }
 
-    //moves claw asynchronously
+        //moves claw asynchronously
 
-    
+    public void moveClaw(ClawPosition position) {
+        if (position == ClawPosition.CLOSE) {
+            servo.setPower(-0.5);
+        }
+        if (position == ClawPosition.OPEN) {
+            servo.setPower(0.5);
+        }
+        if (position == ClawPosition.STOP) {
+            servo.setPower(0);
+        }
+    }
+
+    public double getPower() {
+        return servo.getPower();
+    }
 
 }
