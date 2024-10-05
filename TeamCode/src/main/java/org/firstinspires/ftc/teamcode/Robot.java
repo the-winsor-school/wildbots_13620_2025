@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -43,6 +44,8 @@ public class Robot {
         rb = map.tryGet(DcMotor.class, "rb");
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
+
+        lb.setDirection(DcMotor.Direction.REVERSE);
 
         driving = new StrafeDrive(rf, rb, lf, lb);
     }
