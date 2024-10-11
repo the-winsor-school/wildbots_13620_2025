@@ -3,6 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.CRServo;
+
+import org.firstinspires.ftc.teamcode.Arm.*;
+//import org.firstinspires.ftc.teamcode.driving.IDriving;
+//import org.firstinspires.ftc.teamcode.driving.StrafeDrive;
 
 /**
  * In this file we:
@@ -27,6 +32,8 @@ public class Robot {
     private DcMotor lf;
     private DcMotor lb;
 
+    public Claw clawServo;
+
     public StrafeDrive driving;
 
     private LinearOpMode opMode;
@@ -44,9 +51,13 @@ public class Robot {
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
 
-        driving = new StrafeDrive(rf, rb, lf, lb);
+        clawServo = new Claw(map.tryGet(CRServo.class, "servo"));
+        }
+
+        //driving = new StrafeDrive(rf, rb, lf, lb);
     }
 
+    /*
     public void printWheelPowers() {
         opMode.telemetry.addData("rf: ", rf.getPower());
         opMode.telemetry.addData("lf: ", lf.getPower());
@@ -54,7 +65,9 @@ public class Robot {
         opMode.telemetry.addData("lb: ", lb.getPower());
 
     }
+     */
 
+    /*
     public enum Direction {
         LEFT,
         RIGHT,
@@ -62,5 +75,6 @@ public class Robot {
         BACK
     }
 
+     */
 
-}
+

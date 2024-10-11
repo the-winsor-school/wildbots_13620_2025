@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Arm.Claw;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
 
@@ -22,7 +24,7 @@ public class TeleOp extends LinearOpMode {
             float y = -gamepad1.right_stick_y; //inputs from joystick are opposite
             float t = gamepad1.left_stick_x;
 
-            robot.driving.joystickDrive(x, y, t);
+            //robot.driving.joystickDrive(x, y, t);
 
 
             //_______________________________________________
@@ -31,7 +33,15 @@ public class TeleOp extends LinearOpMode {
 
 
             //ADD MECH CODE HERE FOR GAMEPAD2
-
+            if (gamepad2.right_bumper) {
+                robot.clawServo.moveClaw(ClawPosition.OPEN);
+            }
+            if (gamepad2.left_bumper) {
+                robot.clawServo.moveClaw(ClawPosition.CLOSE);
+            }
+            if (!gamepad2.left_bumper && !gamepad2.right_bumper){
+                robot.clawServo.moveClaw(ClawPosition.STOP);
+            }
             //_______________________________________________
             //             PRINT STATEMENTS
             //_______________________________________________
@@ -45,7 +55,9 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("t: ", t);
 
             //wheels powers
+            /*
             robot.printWheelPowers();
+             */
 
             telemetry.update();
         }
