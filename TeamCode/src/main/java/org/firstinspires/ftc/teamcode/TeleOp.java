@@ -34,14 +34,19 @@ public class TeleOp extends LinearOpMode {
 
             //ADD MECH CODE HERE FOR GAMEPAD2
             if (gamepad2.right_bumper) {
-                robot.claw.moveClaw(ClawPosition.OPEN);
-            }
-            if (gamepad2.left_bumper) {
                 robot.claw.moveClaw(ClawPosition.CLOSE);
             }
-            if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
-                //robot.claw.moveClaw(ClawPosition.STOP);
+            if (gamepad2.left_bumper) {
+                robot.claw.moveClaw(ClawPosition.OPEN);
             }
+            if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
+                robot.claw.moveClaw(ClawPosition.STOP);
+            }
+
+            //robot.claw.moveClaw(ClawPosition.OPEN);
+            //sleep(100);
+
+
 
             //_______________________________________________
             //             PRINT STATEMENTS
