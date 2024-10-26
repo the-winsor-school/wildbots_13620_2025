@@ -32,7 +32,9 @@ public class Robot {
     private DcMotor lf;
     private DcMotor lb;
 
-    public Claw clawServo;
+    private CRServo clawServo;
+
+    public Claw claw;
 
     public StrafeDrive driving;
 
@@ -51,11 +53,15 @@ public class Robot {
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
 
-        clawServo = new Claw(map.tryGet(CRServo.class, "servo"));
+        //claw
+        clawServo = map.tryGet(CRServo.class, "servo");
+        claw = new Claw(clawServo);
+
+        driving = new StrafeDrive(rf, rb, lf, lb);
+
         }
 
-        //driving = new StrafeDrive(rf, rb, lf, lb);
-    }
+
 
     /*
     public void printWheelPowers() {
@@ -63,9 +69,9 @@ public class Robot {
         opMode.telemetry.addData("lf: ", lf.getPower());
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
-
+*/
     }
-     */
+
 
     /*
     public enum Direction {
