@@ -71,7 +71,7 @@ public class Robot {
     }
 
     public boolean checkRedTape() {
-        if (color.red()  > 350) {
+        if (color.red()  > 2500) {
             return true;
         } else {
             return false;
@@ -79,10 +79,18 @@ public class Robot {
     }
 
     public boolean checkBlueTape() {
-        if (color.blue() > 500)
+        if (color.blue() > 2500)
             return true;
         return false;
     }
+
+    public void printColorValues(){
+        opMode.telemetry.addData("red:", color.red());
+        opMode.telemetry.addData("blue", color.blue());
+        opMode.telemetry.addData("green", color.green());
+        opMode.telemetry.update();
+    }
+
 
     public boolean checkWhiteTape() {
         if (color.red() > 500 && color.blue() > 500 && color.green() > 500)
