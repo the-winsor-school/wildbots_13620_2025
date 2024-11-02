@@ -17,7 +17,8 @@ public class AutonForTesting extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            robot.printColorValues();
+            telemetry.addData("distance", robot.checkDistance());
+            telemetry.update();
 
 
         }

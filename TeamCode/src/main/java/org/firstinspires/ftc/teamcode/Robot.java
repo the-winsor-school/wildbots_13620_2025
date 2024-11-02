@@ -4,7 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * In this file we:
@@ -35,6 +38,8 @@ public class Robot {
 
     private ColorSensor color;
 
+    private DistanceSensor distance;
+
     /**
      * @param opMode pass by writing: new Robot(this);
      */
@@ -49,8 +54,9 @@ public class Robot {
         lb = map.tryGet(DcMotor.class, "lb");
 
         lb.setDirection(DcMotor.Direction.REVERSE);
-        
+
         color = map.tryGet(ColorSensor.class, "color");
+        distance = map.tryGet(DistanceSensor.class, "backDistance");
 
         driving = new StrafeDrive(rf, rb, lf, lb);
     }
@@ -91,6 +97,11 @@ public class Robot {
         opMode.telemetry.update();
     }
 
+    public void printDistanceValues(){
+        opMode.telemetry.addData("distance", checkDistance());
+        opMode.telemetry.update();
+    }
+
 
     public boolean checkWhiteTape() {
         if (color.red() > 500 && color.blue() > 500 && color.green() > 500)
@@ -108,6 +119,10 @@ public class Robot {
         if (checkEndTape() || checkWhiteTape())
             return true;
         return false;
+    }
+
+    public double checkDistance(){
+        return distance.getDistance(DistanceUnit.CM);
     }
 
 }
