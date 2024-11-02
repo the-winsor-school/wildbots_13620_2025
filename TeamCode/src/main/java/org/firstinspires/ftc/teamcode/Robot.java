@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -32,6 +33,8 @@ public class Robot {
 
     private LinearOpMode opMode;
 
+    private ColorSensor color;
+
     /**
      * @param opMode pass by writing: new Robot(this);
      */
@@ -46,6 +49,8 @@ public class Robot {
         lb = map.tryGet(DcMotor.class, "lb");
 
         lb.setDirection(DcMotor.Direction.REVERSE);
+        
+        color = map.tryGet(ColorSensor.class, "color");
 
         driving = new StrafeDrive(rf, rb, lf, lb);
     }
@@ -65,5 +70,44 @@ public class Robot {
         BACK
     }
 
+    public boolean checkRedTape() {
+        if (color.red()  > 2500) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean checkBlueTape() {
+        if (color.blue() > 2500)
+            return true;
+        return false;
+    }
+
+    public void printColorValues(){
+        opMode.telemetry.addData("red:", color.red());
+        opMode.telemetry.addData("blue", color.blue());
+        opMode.telemetry.addData("green", color.green());
+        opMode.telemetry.update();
+    }
+
+
+    public boolean checkWhiteTape() {
+        if (color.red() > 500 && color.blue() > 500 && color.green() > 500)
+            return true;
+        return false;
+    }
+
+    public boolean checkEndTape() {
+        if (checkBlueTape() || checkRedTape())
+            return true;
+        return false;
+    }
+
+    public boolean checkANYTape() {
+        if (checkEndTape() || checkWhiteTape())
+            return true;
+        return false;
+    }
 
 }
