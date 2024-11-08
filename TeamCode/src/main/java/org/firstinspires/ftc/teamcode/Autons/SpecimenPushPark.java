@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Robot;
 
-@Autonomous(name = "Specimen Park Auton")
-public class SpecimenPlacePark extends LinearOpMode {
+@Autonomous(name = "Specimen Push Park")
+public class SpecimenPushPark extends LinearOpMode {
 
     Robot robot;
 
@@ -34,6 +34,22 @@ public class SpecimenPlacePark extends LinearOpMode {
             opMode.sleep(2000);
             //robot places speciem
 
+            robot.driving.horizontal(1);
+            while(robot.checkLeftDistance() > 10){
+                telemetry.addData("distance","not close");
+                robot.printBackDistanceValues();
+                telemetry.update();
+                opMode.sleep(10);
+            }
+            robot.driving.stop();
+            //turn left using turn function from driving library
+            //turn left ninety degrees
+            //strafe left and push yellow sample into triangle zone, using the color sensor
+            //turn right ninety degrees
+            //strafe all the way right into the red parking zone
+
+            //everything after this is going back after placing a specimen
+
             robot.driving.vertical(-0.5f);
 
             while (robot.checkBackDistance() > 15) {//moves until distance at certain point
@@ -51,7 +67,7 @@ public class SpecimenPlacePark extends LinearOpMode {
             while(!robot.checkEndTape()){
                 telemetry.addData("tape", "not found");
                 telemetry.update();
-                robot.driving.horizontal(0.5f);
+                robot.driving.horizontal(-0.5f);
                 opMode.sleep(20);
             }
             robot.driving.stop();

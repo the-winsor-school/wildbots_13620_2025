@@ -38,7 +38,9 @@ public class Robot {
 
     private ColorSensor color;
 
-    private DistanceSensor distance;
+    private DistanceSensor distanceBack;
+
+    private DistanceSensor distanceLeft;
 
     /**
      * @param opMode pass by writing: new Robot(this);
@@ -56,8 +58,8 @@ public class Robot {
         lb.setDirection(DcMotor.Direction.REVERSE);
 
         color = map.tryGet(ColorSensor.class, "color");
-        distance = map.tryGet(DistanceSensor.class, "backDistance");
-
+        distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
+        distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
         driving = new StrafeDrive(rf, rb, lf, lb);
     }
 
@@ -97,11 +99,15 @@ public class Robot {
         opMode.telemetry.update();
     }
 
-    public void printDistanceValues(){
-        opMode.telemetry.addData("distance", checkDistance());
+    public void printBackDistanceValues(){
+        opMode.telemetry.addData("back distance", checkBackDistance());
         opMode.telemetry.update();
     }
 
+    public void printLeftDistanceValues(){
+        opMode.telemetry.addData("left distance", checkLeftDistance());
+        opMode.telemetry.update();
+    }
 
     public boolean checkWhiteTape() {
         if (color.red() > 500 && color.blue() > 500 && color.green() > 500)
@@ -121,8 +127,12 @@ public class Robot {
         return false;
     }
 
-    public double checkDistance(){
-        return distance.getDistance(DistanceUnit.CM);
+    public double checkBackDistance(){
+        return distanceBack.getDistance(DistanceUnit.CM);
+    }
+
+    public double checkLeftDistance(){
+        return distanceLeft.getDistance(DistanceUnit.CM);
     }
 
 }

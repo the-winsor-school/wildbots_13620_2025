@@ -17,7 +17,7 @@ public class AutonForTesting extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            telemetry.addData("distance", robot.checkDistance());
+            telemetry.addData("distance", robot.checkBackDistance());
             telemetry.update();
 
 
