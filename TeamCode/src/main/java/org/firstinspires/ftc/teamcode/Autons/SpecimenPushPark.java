@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autons;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Robot;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 
 @Autonomous(name = "Specimen Push Park")
 public class SpecimenPushPark extends LinearOpMode {
@@ -42,17 +43,13 @@ public class SpecimenPushPark extends LinearOpMode {
                 opMode.sleep(10);
             }
             robot.driving.stop();
-            //turn left using turn function from driving library
-            //turn left ninety degrees
+
+            //turn left ninety degrees, figure out how to use driving library and IMU
+
             //strafe left and push yellow sample into triangle zone, using the color sensor
-            //turn right ninety degrees
-            //strafe all the way right into the red parking zone
 
-            //everything after this is going back after placing a specimen
-
-            robot.driving.vertical(-0.5f);
-
-            while (robot.checkBackDistance() > 15) {//moves until distance at certain point
+            //using distance sensor
+            while (robot.checkLeftDistance() > 5) {//moves until distance at certain point
                 telemetry.addData("distance", "not close");
                 robot.printBackDistanceValues();
                 telemetry.update();
@@ -60,14 +57,25 @@ public class SpecimenPushPark extends LinearOpMode {
             }
             robot.driving.stop();
 
-            opMode.sleep(1000);
-            runVertical(0.5f);
-
-            robot.driving.horizontal(1);
+            //using color sensor
+            /*
             while(!robot.checkEndTape()){
-                telemetry.addData("tape", "not found");
+                telemetry.addData("tape","not found");
                 telemetry.update();
                 robot.driving.horizontal(-0.5f);
+                opMode.sleep(20);
+            }
+            robot.driving.stop();
+             */
+
+            //turn right ninety degrees
+
+            //strafe all the way right into the red parking zone
+
+            while(!robot.checkEndTape()){
+                telemetry.addData("tape","not found");
+                telemetry.update();
+                robot.driving.horizontal(0.5f);
                 opMode.sleep(20);
             }
             robot.driving.stop();
