@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ArmLift.MotorState;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
 
@@ -46,6 +48,15 @@ public class TeleOp extends LinearOpMode {
 
             //wheels powers
             robot.printWheelPowers();
+
+            //lift manual controls
+            if (gamepad2.dpad_up)
+                robot.lift.motor.setMotorState(MotorState.FORWARD);
+            if(gamepad2.dpad_down)
+                robot.lift.motor.setMotorState(MotorState.REVERSE);
+            //lift braking
+            if (!gamepad2.dpad_down && !gamepad2.dpad_up)
+                robot.lift.motor.setMotorState(MotorState.STOP);
 
             telemetry.update();
         }

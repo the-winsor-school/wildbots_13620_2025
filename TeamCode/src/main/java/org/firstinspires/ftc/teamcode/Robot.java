@@ -44,7 +44,7 @@ public class Robot {
 
     private DistanceSensor distanceLeft;
 
-    private FullArmLift lift;
+    public FullArmLift lift;
 
     /**
      * @param opMode pass by writing: new Robot(this);
