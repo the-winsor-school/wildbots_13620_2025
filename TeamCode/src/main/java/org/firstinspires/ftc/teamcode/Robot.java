@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
 /**
  * In this file we:
@@ -31,6 +32,8 @@ public class Robot {
     private DcMotor rb;
     private DcMotor lf;
     private DcMotor lb;
+    //lift
+    private DcMotor liftMotor;
 
     public StrafeDrive driving;
 
@@ -41,6 +44,8 @@ public class Robot {
     private DistanceSensor distanceBack;
 
     private DistanceSensor distanceLeft;
+
+    private FullArmLift lift;
 
     /**
      * @param opMode pass by writing: new Robot(this);
@@ -57,10 +62,14 @@ public class Robot {
 
         lb.setDirection(DcMotor.Direction.REVERSE);
 
+        liftMotor = map.tryGet(DcMotor.class, "lift");
+
         color = map.tryGet(ColorSensor.class, "color");
         distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
         distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
         driving = new StrafeDrive(rf, rb, lf, lb);
+
+        lift = new FullArmLift(liftMotor);
     }
 
     public void printWheelPowers() {
