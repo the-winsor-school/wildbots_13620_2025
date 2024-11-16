@@ -21,7 +21,7 @@ public class SpecimenPushPark extends LinearOpMode {
         if (opModeIsActive()) {
             robot.driving.vertical(0.7f);
             opMode.sleep(500);
-            robot.driving.vertical(0.5f);
+            robot.driving.vertical(0.7f);
             telemetry.addData("moving forward", "no loop");
             telemetry.update();
 
@@ -33,11 +33,11 @@ public class SpecimenPushPark extends LinearOpMode {
             telemetry.update();
             robot.driving.stop();
             opMode.sleep(2000);
-            //robot places speciem
+            //robot places specimen
 
             robot.driving.horizontal(1);
-            while(robot.checkLeftDistance() > 10){
-                telemetry.addData("distance","not close");
+            while (robot.checkBackDistance() > 10) {
+                telemetry.addData("distance", "not close");
                 robot.printBackDistanceValues();
                 telemetry.update();
                 opMode.sleep(10);
@@ -49,44 +49,67 @@ public class SpecimenPushPark extends LinearOpMode {
             //strafe left and push yellow sample into triangle zone, using the color sensor
 
             //using distance sensor
-            while (robot.checkLeftDistance() > 5) {//moves until distance at certain point
+            while (robot.checkLeftDistance() > 15) {//moves until distance at certain point
+                telemetry.addData("distance to left wall", "not close");
+                robot.printLeftDistanceValues();
+                telemetry.update();
+                robot.driving.horizontal(-0.5f);
+                opMode.sleep(10);
+            }
+            robot.driving.stop();
+            opMode.sleep(1000);
+            runVertical(0.5f);
+
+            //checking for white tape
+
+            while (!robot.checkWhiteTape()) {
+                telemetry.addData("white tape", "not found");
+                telemetry.update();
+                robot.driving.vertical(0.5f);
+                opMode.sleep(20);
+            }
+            robot.driving.stop();
+            opMode.sleep(1000);
+            runVertical(0.5f);
+
+            while (robot.checkLeftDistance() > 10) {//moves until distance at certain point
+                telemetry.addData("distance to left wall", "not close");
+                robot.printLeftDistanceValues();
+                telemetry.update();
+                robot.driving.horizontal(-0.5f);
+                opMode.sleep(10);
+            }
+            robot.driving.horizontal(1);
+            while (robot.checkBackDistance() > 10) {
                 telemetry.addData("distance", "not close");
                 robot.printBackDistanceValues();
                 telemetry.update();
                 opMode.sleep(10);
             }
             robot.driving.stop();
+            opMode.sleep(1000);
+            runVertical(0.5f);
 
-            //using color sensor
-            /*
-            while(!robot.checkEndTape()){
-                telemetry.addData("tape","not found");
-                telemetry.update();
-                robot.driving.horizontal(-0.5f);
-                opMode.sleep(20);
+                //turn right ninety degrees
+
+                //strafe all the way right into the red parking zone
+                robot.driving.horizontal(1);
+
+                while (!robot.checkEndTape()) {
+                    telemetry.addData("tape at parking", "not found");
+                    telemetry.update();
+                    robot.driving.horizontal(0.5f);
+                    opMode.sleep(20);
+                }
+                robot.driving.stop();
+
             }
-            robot.driving.stop();
-             */
-
-            //turn right ninety degrees
-
-            //strafe all the way right into the red parking zone
-
-            while(!robot.checkEndTape()){
-                telemetry.addData("tape","not found");
-                telemetry.update();
-                robot.driving.horizontal(0.5f);
-                opMode.sleep(20);
-            }
-            robot.driving.stop();
 
         }
-
-    }
-
 
     public void runVertical(float step) {
 
     }
+
 }
 
