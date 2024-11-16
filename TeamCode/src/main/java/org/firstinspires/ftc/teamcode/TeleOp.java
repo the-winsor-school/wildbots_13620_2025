@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 import org.firstinspires.ftc.teamcode.ArmLift.MotorState;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
@@ -56,7 +57,15 @@ public class TeleOp extends LinearOpMode {
                 robot.lift.motor.setMotorState(MotorState.REVERSE);
             //lift braking
             if (!gamepad2.dpad_down && !gamepad2.dpad_up)
-                robot.lift.motor.setMotorState(MotorState.STOP);
+                robot.lift.motor.setMotorState(MotorState.STOP);//test for FLOAT or BRAKE
+
+            //lift values
+            if (gamepad1.x)
+                robot.lift.moveLiftToPosition(FullArmLift.LIFT_POSITION.RESET);
+            if (gamepad1.a)
+                robot.lift.moveLiftToPosition(FullArmLift.LIFT_POSITION.HIGHRUNG);
+            if (gamepad1.b)
+                robot.lift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOWRUNG);
 
             telemetry.update();
         }

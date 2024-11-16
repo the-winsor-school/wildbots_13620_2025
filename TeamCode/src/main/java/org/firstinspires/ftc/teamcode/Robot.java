@@ -61,7 +61,7 @@ public class Robot {
 
         lb.setDirection(DcMotor.Direction.REVERSE);
 
-        liftMotor = map.tryGet(DcMotor.class, "lift");
+        liftMotor = map.tryGet(DcMotor.class, "liftMotor");
 
         color = map.tryGet(ColorSensor.class, "color");
         distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
