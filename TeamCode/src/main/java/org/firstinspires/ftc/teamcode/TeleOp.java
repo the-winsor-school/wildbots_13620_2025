@@ -32,8 +32,18 @@ public class TeleOp extends LinearOpMode {
             //             MECH CONTROLLER
             //_______________________________________________
 
+            //joystick controls
+            robot.fullLift.joystickControlCascade(gamepad1.left_stick_y);
+            robot.fullLift.joystickControlDrawbridge(gamepad1.right_stick_y);
 
-            //ADD MECH CODE HERE FOR GAMEPAD2
+            //levels - not tested yet
+/*            if (gamepad1.x)
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.RESET);
+            if (gamepad1.a)
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.HIGHRUNG);
+            if (gamepad1.b)
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOWRUNG);
+                */
 
             //_______________________________________________
             //             PRINT STATEMENTS
@@ -50,22 +60,6 @@ public class TeleOp extends LinearOpMode {
             //wheels powers
             robot.printWheelPowers();
 
-            //lift manual controls
-            if (gamepad2.dpad_up)
-                robot.lift.motor.setMotorState(MotorState.FORWARD);
-            if(gamepad2.dpad_down)
-                robot.lift.motor.setMotorState(MotorState.REVERSE);
-            //lift braking
-            if (!gamepad2.dpad_down && !gamepad2.dpad_up)
-                robot.lift.motor.setMotorState(MotorState.STOP);//test for FLOAT or BRAKE
-
-            //lift values
-            if (gamepad1.x)
-                robot.lift.moveLiftToPosition(FullArmLift.LIFT_POSITION.RESET);
-            if (gamepad1.a)
-                robot.lift.moveLiftToPosition(FullArmLift.LIFT_POSITION.HIGHRUNG);
-            if (gamepad1.b)
-                robot.lift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOWRUNG);
 
             telemetry.update();
         }

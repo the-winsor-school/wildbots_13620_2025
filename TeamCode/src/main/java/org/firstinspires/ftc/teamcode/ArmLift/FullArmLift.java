@@ -1,16 +1,20 @@
 package org.firstinspires.ftc.teamcode.ArmLift;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class FullArmLift {
-    public LiftMotor motor;
-    public FullArmLift(DcMotor liftMotor){
-        motor = new LiftMotor (liftMotor,0.8);
+    public GenericLiftMotor cascade;
+    public GenericLiftMotor drawbridge;
+
+    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor){
+        cascade = new GenericLiftMotor(cascadeMotor,0.8, 200);
+        drawbridge = new GenericLiftMotor(drawbridgeMotor, 0.8, 200);
     }
 
     public void moveLiftToPosition (LIFT_POSITION pos){
         if(pos == LIFT_POSITION.RESET){
-            motor.setTargetPosition(0);
+            cascade.runToPosition(0);
+            drawbridge.runToPosition(0);
         }
         if(pos == LIFT_POSITION.HIGHRUNG){
             //motor.setTargetPosition(); test for encoder
@@ -20,6 +24,17 @@ public class FullArmLift {
         }
         //add one more for PICKINGUP if RESET does not work
     }
+
+    public void joystickControlCascade(float input) {
+        cascade.setMotorPower(input);
+    }
+
+    public void joystickControlDrawbridge(float input) {
+        drawbridge.setMotorPower(input);
+    }
+
+
+
     public enum LIFT_POSITION {
         RESET,
         HIGHRUNG,
