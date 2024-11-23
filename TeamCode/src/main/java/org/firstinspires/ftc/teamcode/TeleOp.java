@@ -2,10 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
-import org.firstinspires.ftc.teamcode.ArmLift.MotorState;
-
-import org.firstinspires.ftc.teamcode.Arm.Claw;
+import org.firstinspires.ftc.teamcode.ArmLift.ClawPosition;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
@@ -50,13 +47,13 @@ public class TeleOp extends LinearOpMode {
 
             //ADD MECH CODE HERE FOR GAMEPAD2
             if (gamepad2.right_bumper) {
-                robot.claw.moveClaw(ClawPosition.CLOSE);
+                robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
             }
             if (gamepad2.left_bumper) {
-                robot.claw.moveClaw(ClawPosition.OPEN);
+                robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
             }
             if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
-                robot.claw.moveClaw(ClawPosition.STOP);
+                robot.fullLift.claw.moveClaw(ClawPosition.STOP);
             }
 
             //robot.claw.moveClaw(ClawPosition.OPEN);
@@ -76,7 +73,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("y: ", y);
             telemetry.addData("t: ", t);
 
-            telemetry.addData("claw position: ", robot.claw.getCurrentPosition());
+            telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
 
             //wheels powers
             /*

@@ -8,11 +8,11 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-import org.firstinspires.ftc.teamcode.Arm.*;
 //import org.firstinspires.ftc.teamcode.driving.IDriving;
 //import org.firstinspires.ftc.teamcode.driving.StrafeDrive;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.ArmLift.Claw;
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
 /**
@@ -42,8 +42,6 @@ public class Robot {
     private DcMotorEx drawbridgeMotor;
 
     private CRServo clawServo;
-
-    public Claw claw;
 
     public StrafeDrive driving;
 
@@ -76,23 +74,17 @@ public class Robot {
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
 
-        color = map.tryGet(ColorSensor.class, "color");
-        distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
-        distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
-        driving = new StrafeDrive(rf, rb, lf, lb);
-
-        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor);
-    }
-        //claw
         clawServo = map.tryGet(CRServo.class, "servo");
-        claw = new Claw(clawServo);
 
+        //color = map.tryGet(ColorSensor.class, "color");
+        //distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
+        //distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
 
         driving = new StrafeDrive(rf, rb, lf, lb);
 
-        }
+        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo);
 
-
+    }
 
 
     public void printWheelPowers() {
@@ -101,7 +93,6 @@ public class Robot {
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
     }
-
 
 
     public enum Direction {
@@ -113,7 +104,7 @@ public class Robot {
 
 
     public boolean checkRedTape() {
-        if (color.red()  > 2500) {
+        if (color.red() > 2500) {
             return true;
         } else {
             return false;
@@ -126,19 +117,19 @@ public class Robot {
         return false;
     }
 
-    public void printColorValues(){
+    public void printColorValues() {
         opMode.telemetry.addData("red:", color.red());
         opMode.telemetry.addData("blue", color.blue());
         opMode.telemetry.addData("green", color.green());
         opMode.telemetry.update();
     }
 
-    public void printBackDistanceValues(){
+    public void printBackDistanceValues() {
         opMode.telemetry.addData("back distance", checkBackDistance());
         opMode.telemetry.update();
     }
 
-    public void printLeftDistanceValues(){
+    public void printLeftDistanceValues() {
         opMode.telemetry.addData("left distance", checkLeftDistance());
         opMode.telemetry.update();
     }
@@ -161,12 +152,14 @@ public class Robot {
         return false;
     }
 
-    public double checkBackDistance(){
+    public double checkBackDistance() {
         return distanceBack.getDistance(DistanceUnit.CM);
     }
 
-    public double checkLeftDistance(){
+    public double checkLeftDistance() {
         return distanceLeft.getDistance(DistanceUnit.CM);
     }
+
+}
 
 
