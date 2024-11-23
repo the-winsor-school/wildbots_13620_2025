@@ -61,7 +61,8 @@ public class Robot {
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
 
-        lb.setDirection(DcMotor.Direction.REVERSE);
+        rb.setDirection(DcMotor.Direction.REVERSE);
+        lf.setDirection(DcMotor.Direction.REVERSE);
 
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
