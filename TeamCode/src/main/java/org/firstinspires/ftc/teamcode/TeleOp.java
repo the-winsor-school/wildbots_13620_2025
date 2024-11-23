@@ -25,7 +25,7 @@ public class TeleOp extends LinearOpMode {
             float y = -gamepad1.right_stick_y; //inputs from joystick are opposite
             float t = gamepad1.left_stick_x;
 
-            //robot.driving.joystickDrive(x, y, t);
+            robot.driving.joystickDrive(x, y, t);
 
 
             //_______________________________________________
@@ -33,7 +33,10 @@ public class TeleOp extends LinearOpMode {
             //_______________________________________________
 
             //joystick controls
-            robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+
+            //have to fix cascade
+            //robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+
             robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y);
 
             //levels - not tested yet
