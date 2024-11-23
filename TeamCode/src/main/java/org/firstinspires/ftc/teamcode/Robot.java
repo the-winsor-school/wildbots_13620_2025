@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
 /**
  * In this file we:
@@ -31,6 +32,9 @@ public class Robot {
     private DcMotor rb;
     private DcMotor lf;
     private DcMotor lb;
+    //lift
+    private DcMotorEx cascadeMotor;
+    private DcMotorEx drawbridgeMotor;
 
     public StrafeDrive driving;
 
@@ -41,6 +45,8 @@ public class Robot {
     private DistanceSensor distanceBack;
 
     private DistanceSensor distanceLeft;
+
+    public FullArmLift fullLift;
 
     /**
      * @param opMode pass by writing: new Robot(this);
@@ -55,12 +61,18 @@ public class Robot {
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
 
-        lb.setDirection(DcMotor.Direction.REVERSE);
+        rb.setDirection(DcMotor.Direction.REVERSE);
+        lf.setDirection(DcMotor.Direction.REVERSE);
+
+        cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
+        drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
 
         color = map.tryGet(ColorSensor.class, "color");
         distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
         distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
         driving = new StrafeDrive(rf, rb, lf, lb);
+
+        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor);
     }
 
     public void printWheelPowers() {

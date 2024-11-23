@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
+import org.firstinspires.ftc.teamcode.ArmLift.MotorState;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
 
@@ -29,8 +32,18 @@ public class TeleOp extends LinearOpMode {
             //             MECH CONTROLLER
             //_______________________________________________
 
+            //joystick controls
+            robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+            robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y);
 
-            //ADD MECH CODE HERE FOR GAMEPAD2
+            //levels - not tested yet
+/*            if (gamepad1.x)
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.RESET);
+            if (gamepad1.a)
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.HIGHRUNG);
+            if (gamepad1.b)
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOWRUNG);
+                */
 
             //_______________________________________________
             //             PRINT STATEMENTS
@@ -46,6 +59,7 @@ public class TeleOp extends LinearOpMode {
 
             //wheels powers
             robot.printWheelPowers();
+
 
             telemetry.update();
         }

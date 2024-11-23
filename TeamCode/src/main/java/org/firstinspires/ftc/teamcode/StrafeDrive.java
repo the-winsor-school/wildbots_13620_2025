@@ -33,10 +33,10 @@ public class StrafeDrive {
         float t = (Math.abs(T) < 0.1f) ? 0 : T;
 
         //explanation in drive and slack
-        rf.setPower((y - x - t));
-        rb.setPower((y + x - t));
-        lf.setPower((y + x + t));
-        lb.setPower((y - x + t));
+        rf.setPower((y - x - t) * speed);
+        rb.setPower((y + x - t) * speed);
+        lf.setPower((y + x + t) * speed);
+        lb.setPower((y - x + t) * speed);
     }
 
     public void turn (double t) {
