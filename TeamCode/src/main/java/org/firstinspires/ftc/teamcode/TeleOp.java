@@ -33,8 +33,8 @@ public class TeleOp extends LinearOpMode {
             //_______________________________________________
 
             //joystick controls
-            robot.fullLift.joystickControlCascade(gamepad1.left_stick_y);
-            //robot.fullLift.joystickControlDrawbridge(gamepad1.right_stick_y);
+            robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+            robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y);
 
             //levels - not tested yet
 /*            if (gamepad1.x)
