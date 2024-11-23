@@ -6,6 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.CRServo;
+
+import org.firstinspires.ftc.teamcode.Arm.*;
+//import org.firstinspires.ftc.teamcode.driving.IDriving;
+//import org.firstinspires.ftc.teamcode.driving.StrafeDrive;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
@@ -35,6 +40,10 @@ public class Robot {
     //lift
     private DcMotorEx cascadeMotor;
     private DcMotorEx drawbridgeMotor;
+
+    private CRServo clawServo;
+
+    public Claw claw;
 
     public StrafeDrive driving;
 
@@ -74,14 +83,26 @@ public class Robot {
 
         fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor);
     }
+        //claw
+        clawServo = map.tryGet(CRServo.class, "servo");
+        claw = new Claw(clawServo);
+
+
+        driving = new StrafeDrive(rf, rb, lf, lb);
+
+        }
+
+
+
 
     public void printWheelPowers() {
         opMode.telemetry.addData("rf: ", rf.getPower());
         opMode.telemetry.addData("lf: ", lf.getPower());
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
-
     }
+
+
 
     public enum Direction {
         LEFT,
@@ -89,6 +110,7 @@ public class Robot {
         FRONT,
         BACK
     }
+
 
     public boolean checkRedTape() {
         if (color.red()  > 2500) {
@@ -147,4 +169,4 @@ public class Robot {
         return distanceLeft.getDistance(DistanceUnit.CM);
     }
 
-}
+
