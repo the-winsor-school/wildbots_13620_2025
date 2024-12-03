@@ -103,7 +103,7 @@ public class Robot {
     }
 
     public boolean checkRedTape() {
-        if (color.red()  > 2500) {
+        if (color.red() > 2500) {
             return true;
         } else {
             return false;
@@ -116,19 +116,19 @@ public class Robot {
         return false;
     }
 
-    public void printColorValues(){
+    public void printColorValues() {
         opMode.telemetry.addData("red:", color.red());
         opMode.telemetry.addData("blue", color.blue());
         opMode.telemetry.addData("green", color.green());
         opMode.telemetry.update();
     }
 
-    public void printBackDistanceValues(){
+    public void printBackDistanceValues() {
         opMode.telemetry.addData("back distance", checkBackDistance());
         opMode.telemetry.update();
     }
 
-    public void printLeftDistanceValues(){
+    public void printLeftDistanceValues() {
         opMode.telemetry.addData("left distance", checkLeftDistance());
         opMode.telemetry.update();
     }
@@ -151,10 +151,11 @@ public class Robot {
         return false;
     }
 
-    public double checkBackDistance(){
+    public double checkBackDistance() {
         return distanceBack.getDistance(DistanceUnit.CM);
     }
 
-    public double checkLeftDistance(){
+    public double checkLeftDistance() {
         return distanceLeft.getDistance(DistanceUnit.CM);
     }
+}

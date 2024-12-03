@@ -1,14 +1,20 @@
 package org.firstinspires.ftc.teamcode.ArmLift;
 
+import org.firstinspires.ftc.teamcode.ArmLift.Claw;
+
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class FullArmLift {
     public GenericLiftMotor cascade;
     public GenericLiftMotor drawbridge;
 
-    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor){
+    public Claw claw;
+
+    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor, CRServo clawServo){
         cascade = new GenericLiftMotor(cascadeMotor,0.8, 200);
         drawbridge = new GenericLiftMotor(drawbridgeMotor, 0.8, 200);
+        claw = new Claw(clawServo);
     }
 
     public void moveLiftToPosition (LIFT_POSITION pos){
@@ -32,7 +38,6 @@ public class FullArmLift {
     public void joystickControlDrawbridge(float input) {
         drawbridge.setMotorPower(input);
     }
-
 
 
     public enum LIFT_POSITION {

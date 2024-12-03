@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Arm;
+package org.firstinspires.ftc.teamcode.ArmLift;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 
