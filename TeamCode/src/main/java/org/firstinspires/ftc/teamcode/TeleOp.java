@@ -60,6 +60,10 @@ public class TeleOp extends LinearOpMode {
             //wheels powers
             robot.printWheelPowers();
 
+            telemetry.addLine("----------------LIFT-------------------------");
+
+            telemetry.addData("Cascade", robot.fullLift.cascade.getMotorState());
+            telemetry.addData("Drawbridge", robot.fullLift.drawbridge.getMotorState());
 
             telemetry.update();
         }
