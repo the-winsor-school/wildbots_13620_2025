@@ -6,8 +6,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.robotcore.hardware.CRServo;
+
+
+import org.firstinspires.ftc.teamcode.ArmLift.Claw;
+import org.firstinspires.ftc.teamcode.StrafeDrive;
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
 /**
@@ -35,6 +39,10 @@ public class Robot {
     //lift
     private DcMotorEx cascadeMotor;
     private DcMotorEx drawbridgeMotor;
+
+    private CRServo clawServo;
+
+    public Claw claw;
 
     public StrafeDrive driving;
 
@@ -64,16 +72,20 @@ public class Robot {
         rb.setDirection(DcMotor.Direction.REVERSE);
         lf.setDirection(DcMotor.Direction.REVERSE);
 
+        //arm lift
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
+        clawServo = map.tryGet(CRServo.class, "servo");
+
 
         //color = map.tryGet(ColorSensor.class, "color");
         //distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
         //distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
         driving = new StrafeDrive(rf, rb, lf, lb);
 
-        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor);
+        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo);
     }
+
 
     public void printWheelPowers() {
         opMode.telemetry.addData("rf: ", rf.getPower());
@@ -146,5 +158,3 @@ public class Robot {
     public double checkLeftDistance(){
         return distanceLeft.getDistance(DistanceUnit.CM);
     }
-
-}
