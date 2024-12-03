@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ArmLift.ClawPosition;
 
-
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
 
@@ -48,45 +47,37 @@ public class TeleOp extends LinearOpMode {
                 robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOWRUNG);
                 */
 
-            //ADD MECH CODE HERE FOR GAMEPAD2
-            if (gamepad2.right_bumper) {
+            //claw code
+            if (gamepad2.right_bumper)
                 robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
-            }
-            if (gamepad2.left_bumper) {
+            if (gamepad2.left_bumper)
                 robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
-            }
-            if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
+            if (!gamepad2.left_bumper && !gamepad2.right_bumper)
                 robot.fullLift.claw.moveClaw(ClawPosition.STOP);
-            }
-
-            //robot.claw.moveClaw(ClawPosition.OPEN);
-            //sleep(100);
-
-
 
             //_______________________________________________
             //             PRINT STATEMENTS
             //_______________________________________________
 
 
-            telemetry.addLine("----------------WHEELS-------------------------");
+            telemetry.addLine("_________________WHEELS_________________");
 
             //joystick inputs
             telemetry.addData("x: ", x);
             telemetry.addData("y: ", y);
             telemetry.addData("t: ", t);
 
-            telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
-
             //wheels powers
             /*
             robot.printWheelPowers();
              */
 
-            telemetry.addLine("----------------LIFT-------------------------");
+            telemetry.addLine("_________________LIFT_________________");
 
-            telemetry.addData("Cascade", robot.fullLift.cascade.getMotorState());
-            telemetry.addData("Drawbridge", robot.fullLift.drawbridge.getMotorState());
+            telemetry.addData("Cascade: ", robot.fullLift.cascade.getMotorState());
+            telemetry.addData("Drawbridge: ", robot.fullLift.drawbridge.getMotorState());
+
+            telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
 
             telemetry.update();
         }

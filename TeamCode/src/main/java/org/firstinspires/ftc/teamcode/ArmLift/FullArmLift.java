@@ -40,7 +40,6 @@ public class FullArmLift {
     }
 
 
-
     public enum LIFT_POSITION {
         RESET,
         HIGHRUNG,

@@ -7,13 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-//import org.firstinspires.ftc.teamcode.driving.IDriving;
-//import org.firstinspires.ftc.teamcode.driving.StrafeDrive;
-
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.ArmLift.Claw;
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
 /**
@@ -38,23 +34,23 @@ public class Robot {
     private DcMotor rb;
     private DcMotor lf;
     private DcMotor lb;
+
     //lift
     private DcMotorEx cascadeMotor;
     private DcMotorEx drawbridgeMotor;
-
     private CRServo clawServo;
 
-    public StrafeDrive driving;
-
-    private LinearOpMode opMode;
-
+    //sensors
     private ColorSensor color;
-
     private DistanceSensor distanceBack;
-
     private DistanceSensor distanceLeft;
 
+    //opmode
+    private LinearOpMode opMode;
+
+    //objects
     public FullArmLift fullLift;
+    public StrafeDrive driving;
 
     /**
      * @param opMode pass by writing: new Robot(this);
@@ -72,8 +68,10 @@ public class Robot {
         rb.setDirection(DcMotor.Direction.REVERSE);
         lf.setDirection(DcMotor.Direction.REVERSE);
 
+        //arm lift
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
+        clawServo = map.tryGet(CRServo.class, "servo");
 
         drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -83,10 +81,9 @@ public class Robot {
         //distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
         //distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
 
+        //objects
         driving = new StrafeDrive(rf, rb, lf, lb);
-
         fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo);
-
     }
 
 
@@ -95,17 +92,8 @@ public class Robot {
         opMode.telemetry.addData("lf: ", lf.getPower());
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
+
     }
-
-
-    public enum Direction {
-        LEFT,
-        RIGHT,
-        FRONT,
-        BACK
-    }
-
-
     public boolean checkRedTape() {
         if (color.red() > 2500) {
             return true;
@@ -164,5 +152,3 @@ public class Robot {
     }
 
 }
-
-

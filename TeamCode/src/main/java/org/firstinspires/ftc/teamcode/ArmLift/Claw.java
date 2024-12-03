@@ -11,6 +11,7 @@ public class Claw {
 
     public Claw(CRServo clawServo) {
         servo = clawServo;
+        currentPosition = ClawPosition.STOP;
     }
 
     public void moveClaw(ClawPosition position) {
@@ -24,6 +25,7 @@ public class Claw {
         }
         if (position == ClawPosition.STOP) {
             servo.setPower(0);
+            currentPosition = ClawPosition.STOP;
         }
     }
 
