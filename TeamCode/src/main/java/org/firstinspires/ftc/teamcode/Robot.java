@@ -77,12 +77,12 @@ public class Robot {
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
 
-
         //color = map.tryGet(ColorSensor.class, "color");
         //distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
         //distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
-        driving = new StrafeDrive(rf, rb, lf, lb);
 
+        //objects
+        driving = new StrafeDrive(rf, rb, lf, lb);
         fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo);
     }
 

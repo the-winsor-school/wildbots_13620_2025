@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ArmLift.ClawPosition;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
 
@@ -44,18 +46,18 @@ public class TeleOp extends LinearOpMode {
 
             //claw code
             if (gamepad2.right_bumper)
-                robot.claw.moveClaw(ClawPosition.CLOSE);
+                robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
             if (gamepad2.left_bumper)
-                robot.claw.moveClaw(ClawPosition.OPEN);
+                robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
             if (!gamepad2.left_bumper && !gamepad2.right_bumper)
-                robot.claw.moveClaw(ClawPosition.STOP);
+                robot.fullLift.claw.moveClaw(ClawPosition.STOP);
 
             //_______________________________________________
             //             PRINT STATEMENTS
             //_______________________________________________
 
 
-            telemetry.addLine("----------------WHEELS-------------------------");
+            telemetry.addLine("_________________WHEELS_________________");
 
             //joystick inputs
             telemetry.addData("x: ", x);
@@ -68,12 +70,12 @@ public class TeleOp extends LinearOpMode {
             robot.printWheelPowers();
              */
 
-            telemetry.addLine("----------------LIFT-------------------------");
+            telemetry.addLine("_________________LIFT_________________");
 
             telemetry.addData("Cascade: ", robot.fullLift.cascade.getMotorState());
             telemetry.addData("Drawbridge: ", robot.fullLift.drawbridge.getMotorState());
 
-            telemetry.addData("claw position: ", robot.claw.getCurrentPosition());
+            telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
 
             telemetry.update();
         }
