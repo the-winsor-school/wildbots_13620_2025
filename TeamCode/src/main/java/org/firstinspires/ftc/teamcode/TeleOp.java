@@ -35,7 +35,7 @@ public class TeleOp extends LinearOpMode {
             //joystick controls
 
             //have to fix cascade
-            //robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+            robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
 
             robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y);
 
