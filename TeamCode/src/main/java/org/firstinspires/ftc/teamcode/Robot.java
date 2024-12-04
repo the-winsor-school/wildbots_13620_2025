@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.text.method.Touch;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
@@ -44,6 +47,8 @@ public class Robot {
     private ColorSensor color;
     private DistanceSensor distanceBack;
     private DistanceSensor distanceLeft;
+    private TouchSensor topLiftLimit;
+    private TouchSensor bottomLiftLimit;
 
     //opmode
     private LinearOpMode opMode;
@@ -77,13 +82,16 @@ public class Robot {
 
         clawServo = map.tryGet(CRServo.class, "servo");
 
+        topLiftLimit = map.tryGet(TouchSensor.class, "topLiftLimit");
+        bottomLiftLimit = map.tryGet(TouchSensor.class, "bottomLiftLimit");
+
         //color = map.tryGet(ColorSensor.class, "color");
         //distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
         //distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
 
         //objects
         driving = new StrafeDrive(rf, rb, lf, lb);
-        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo);
+        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo, (TouchSensor) topLiftLimit, (TouchSensor) bottomLiftLimit);
     }
 
 
