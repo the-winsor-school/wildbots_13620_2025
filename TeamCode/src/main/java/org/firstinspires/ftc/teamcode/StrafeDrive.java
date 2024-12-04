@@ -17,6 +17,11 @@ public class StrafeDrive {
         this.rb = rb;
         this.lf = lf;
         this.lb =lb;
+
+        rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -28,10 +33,10 @@ public class StrafeDrive {
         float t = (Math.abs(T) < 0.1f) ? 0 : T;
 
         //explanation in drive and slack
-        rf.setPower((y - x - t));
-        rb.setPower((y + x - t));
-        lf.setPower((y + x + t));
-        lb.setPower((y - x + t));
+        rf.setPower((y - x - t) * speed);
+        rb.setPower((y + x - t) * speed);
+        lf.setPower((y + x + t) * speed);
+        lb.setPower((y - x + t) * speed);
     }
 
     public void turn (double t) {
@@ -47,10 +52,10 @@ public class StrafeDrive {
     }
 
     public void stop () {
-        rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rf.setPower(0);
+        rb.setPower(0);
+        lf.setPower(0);
+        lb.setPower(0);
     }
 
     private void setEachPower (double rfp, double rbp, double lfp, double lbp) {
