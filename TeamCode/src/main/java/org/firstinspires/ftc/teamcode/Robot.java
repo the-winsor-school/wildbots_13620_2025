@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.text.method.Touch;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,6 +12,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
+import org.firstinspires.ftc.teamcode.Sensors.OurColorSensor;
+import org.firstinspires.ftc.teamcode.Sensors.OurDistanceSensor;
 
 /**
  * In this file we:
@@ -43,19 +43,32 @@ public class Robot {
     private DcMotorEx drawbridgeMotor;
     private CRServo clawServo;
 
-    //sensors
-    private ColorSensor color;
-    private DistanceSensor distanceBack;
-    private DistanceSensor distanceLeft;
+    //sensors (ftc sensor objects)
+    private DistanceSensor backDist;
+    private DistanceSensor rightDist;
+    private DistanceSensor leftDist;
+    private ColorSensor rightCol;
+    private ColorSensor leftCol;
     private TouchSensor topLiftLimit;
     private TouchSensor bottomLiftLimit;
 
-    //opmode
-    private LinearOpMode opMode;
+    /**
+     * itializtion of classes/objects
+     */
 
-    //objects
+    //sensor objects (our sensor objects)
+    public OurDistanceSensor backDistance;
+    public OurDistanceSensor rightDistance;
+    public OurDistanceSensor leftDistance;
+    public OurColorSensor rightColor;
+    public OurColorSensor leftColor;
+
+    //complex objects
     public FullArmLift fullLift;
     public StrafeDrive driving;
+
+    //opMode
+    private LinearOpMode opMode;
 
     /**
      * @param opMode pass by writing: new Robot(this);
@@ -80,83 +93,32 @@ public class Robot {
 
         drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        clawServo = map.tryGet(CRServo.class, "servo");
+        //sensors
+        backDist = map.tryGet(DistanceSensor.class, "");
+        rightDist = map.tryGet(DistanceSensor.class, "");
+        leftDist = map.tryGet(DistanceSensor.class, "");
+        rightCol = map.tryGet(ColorSensor.class, "");
+        leftCol = map.tryGet(ColorSensor.class, "");
 
         topLiftLimit = map.tryGet(TouchSensor.class, "topLiftLimit");
         bottomLiftLimit = map.tryGet(TouchSensor.class, "bottomLiftLimit");
 
-        //color = map.tryGet(ColorSensor.class, "color");
-        //distanceBack = map.tryGet(DistanceSensor.class, "backDistance");
-        //distanceLeft = map.tryGet(DistanceSensor.class, "leftDistance");
+        //sensor objects
+        backDistance = new OurDistanceSensor(backDist);
+        rightDistance = new OurDistanceSensor(rightDist);
+        leftDistance = new OurDistanceSensor(leftDist);
+        rightColor = new OurColorSensor(rightCol);
+        leftColor = new OurColorSensor(leftCol);
 
-        //objects
+        //complex objects
         driving = new StrafeDrive(rf, rb, lf, lb);
-        fullLift = new FullArmLift((DcMotorEx) cascadeMotor, (DcMotorEx) drawbridgeMotor, (CRServo) clawServo, (TouchSensor) topLiftLimit, (TouchSensor) bottomLiftLimit);
+        fullLift = new FullArmLift(cascadeMotor, drawbridgeMotor, clawServo, topLiftLimit, bottomLiftLimit);
     }
-
 
     public void printWheelPowers() {
         opMode.telemetry.addData("rf: ", rf.getPower());
         opMode.telemetry.addData("lf: ", lf.getPower());
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
-
     }
-    public boolean checkRedTape() {
-        if (color.red() > 2500) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean checkBlueTape() {
-        if (color.blue() > 2500)
-            return true;
-        return false;
-    }
-
-    public void printColorValues() {
-        opMode.telemetry.addData("red:", color.red());
-        opMode.telemetry.addData("blue", color.blue());
-        opMode.telemetry.addData("green", color.green());
-        opMode.telemetry.update();
-    }
-
-    public void printBackDistanceValues() {
-        opMode.telemetry.addData("back distance", checkBackDistance());
-        opMode.telemetry.update();
-    }
-
-    public void printLeftDistanceValues() {
-        opMode.telemetry.addData("left distance", checkLeftDistance());
-        opMode.telemetry.update();
-    }
-
-    public boolean checkWhiteTape() {
-        if (color.red() > 500 && color.blue() > 500 && color.green() > 500)
-            return true;
-        return false;
-    }
-
-    public boolean checkEndTape() {
-        if (checkBlueTape() || checkRedTape())
-            return true;
-        return false;
-    }
-
-    public boolean checkANYTape() {
-        if (checkEndTape() || checkWhiteTape())
-            return true;
-        return false;
-    }
-
-    public double checkBackDistance() {
-        return distanceBack.getDistance(DistanceUnit.CM);
-    }
-
-    public double checkLeftDistance() {
-        return distanceLeft.getDistance(DistanceUnit.CM);
-    }
-
 }
