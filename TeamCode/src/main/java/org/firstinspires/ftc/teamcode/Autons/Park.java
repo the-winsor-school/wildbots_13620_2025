@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@Autonomous(name = "Close Park (red or blue)")
+//Level 1 Auton in Slideshow
+@Autonomous(name = "Close Park (red or blue)", group = "park")
 public class Park extends LinearOpMode {
 
     Robot robot;
@@ -18,8 +19,8 @@ public class Park extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-            robot.driving.horizontal(1);
-            while(!robot.checkEndTape()){
+            robot.driving.horizontal(0.5);
+            while(!(robot.leftColor.redOrBlueTape() || robot.rightColor.redOrBlueTape())){
                 telemetry.addData("tape","not found");
                 telemetry.update();
                 robot.driving.horizontal(0.5f);

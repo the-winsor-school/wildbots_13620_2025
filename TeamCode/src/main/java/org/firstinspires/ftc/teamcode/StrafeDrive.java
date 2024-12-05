@@ -12,16 +12,16 @@ public class StrafeDrive {
 
     private double speed = 0.5;
 
-    public StrafeDrive(DcMotor rf, DcMotor rb, DcMotor lf, DcMotor lb) {
+    public StrafeDrive(DcMotor rf, DcMotor rb, DcMotor lf, DcMotor lb, DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         this.rf = rf;
         this.rb = rb;
         this.lf = lf;
         this.lb =lb;
 
-        rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rf.setZeroPowerBehavior(zeroPowerBehavior);
+        rb.setZeroPowerBehavior(zeroPowerBehavior);
+        lf.setZeroPowerBehavior(zeroPowerBehavior);
+        lb.setZeroPowerBehavior(zeroPowerBehavior);
     }
 
 

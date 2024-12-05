@@ -107,7 +107,7 @@ public class Robot {
         leftColor = new OurColorSensor(leftCol);
 
         //complex objects
-        driving = new StrafeDrive(rf, rb, lf, lb);
+        driving = new StrafeDrive(rf, rb, lf, lb, DcMotor.ZeroPowerBehavior.BRAKE);
         fullLift = new FullArmLift(cascadeMotor, drawbridgeMotor, clawServo);
     }
 
@@ -117,4 +117,11 @@ public class Robot {
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
     }
+
+    public void printColorValues(OurColorSensor sensor) {
+        opMode.telemetry.addData("red: ", sensor.getRed());
+        opMode.telemetry.addData("green: ", sensor.getGreen());
+        opMode.telemetry.addData("blue: ", sensor.getBlue());
+    }
+
 }
