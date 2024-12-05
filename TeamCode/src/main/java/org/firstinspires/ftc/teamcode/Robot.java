@@ -89,9 +89,7 @@ public class Robot {
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
-
-        drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        
         //sensors
         backDist = map.tryGet(DistanceSensor.class, "");
         rightDist = map.tryGet(DistanceSensor.class, "");
