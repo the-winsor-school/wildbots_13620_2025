@@ -42,9 +42,9 @@ public class TeleOp extends LinearOpMode {
 /*            if (gamepad1.x)
                 robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.RESET);
             if (gamepad1.a)
-                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.HIGHRUNG);
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.HIGH_RUNG);
             if (gamepad1.b)
-                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOWRUNG);
+                robot.fullLift.moveLiftToPosition(FullArmLift.LIFT_POSITION.LOW_RUNG);
                 */
 
             //claw code

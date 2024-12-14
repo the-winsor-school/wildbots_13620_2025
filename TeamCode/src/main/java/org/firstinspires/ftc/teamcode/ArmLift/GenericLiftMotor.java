@@ -62,8 +62,10 @@ public class GenericLiftMotor {
     //returns current target position (used mostly for telemetry)
     private int getTargetPosition() { return motor.getTargetPosition(); }
 
-    //parameter sets target position of motor
-    //runs motor async to that position
+    /**
+     * sets target position and runs to position
+     * @param targetPosition
+     */
     public void runToPosition(int targetPosition) {
         motor.setTargetPosition(targetPosition);
         motor.setTargetPositionTolerance(tolerance);
