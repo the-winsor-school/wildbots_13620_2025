@@ -9,6 +9,9 @@ public class FullArmLift {
     public GenericLiftMotor cascade;
     public GenericLiftMotor drawbridge;
 
+    //arm location encoder values
+    //private lift_reset = 0
+
     public Claw claw;
 
     public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor, CRServo clawServo){
