@@ -17,7 +17,7 @@ public class TeleOp extends LinearOpMode {
         while (opModeIsActive()){
 
             //_______________________________________________
-            //             MAIN CONTROLLER
+            //             MAIN CONTROLLER (gamepad1)
             //_______________________________________________
             
             float x = gamepad1.right_stick_x;
@@ -28,14 +28,13 @@ public class TeleOp extends LinearOpMode {
 
 
             //_______________________________________________
-            //             MECH CONTROLLER
+            //             MECH CONTROLLER (gamepad2)
             //_______________________________________________
 
             //joystick controls
 
             //have to fix cascade
             robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
-
             robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y);
 
             //levels - not tested yet
