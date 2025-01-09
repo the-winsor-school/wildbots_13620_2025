@@ -77,7 +77,11 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Cascade: ", robot.fullLift.cascade.getMotorState());
             telemetry.addData("Drawbridge: ", robot.fullLift.drawbridge.getMotorState());
 
+            telemetry.addLine("_________________LIFT_________________");
+
             telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
+            telemetry.addData("cascade position: ", robot.fullLift.cascade.getCurrentPosition());
+            telemetry.addData("lift position: ", robot.fullLift.drawbridge.getCurrentPosition());
 
             telemetry.update();
         }
