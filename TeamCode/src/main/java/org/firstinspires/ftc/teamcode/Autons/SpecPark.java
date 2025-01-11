@@ -40,6 +40,9 @@ public class SpecPark extends LinearOpMode {
             }
 
             //TODO robot places spec
+            //close claw
+            //lower lift
+            //(stop lift?) open claw
             sleep(2000);
 
             //moving back to the wall after placing the spec
