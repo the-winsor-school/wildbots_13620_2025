@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ArmLift.Enums.ClawPosition;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.StrafeDrive;
 
@@ -20,6 +21,8 @@ public class SpecPark extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new Robot(this);
         driving = robot.driving;
+
+        robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
 
         waitForStart();
 

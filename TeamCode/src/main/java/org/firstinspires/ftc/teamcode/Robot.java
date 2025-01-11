@@ -82,22 +82,22 @@ public class Robot {
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
 
-        rb.setDirection(DcMotor.Direction.REVERSE);
-        lf.setDirection(DcMotor.Direction.REVERSE);
+        rf.setDirection(DcMotor.Direction.REVERSE);
+        lb.setDirection(DcMotor.Direction.REVERSE);
 
         //arm lift
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
 
-        drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        drawbridgeMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //sensors
-        backDist = map.tryGet(DistanceSensor.class, "");
-        rightDist = map.tryGet(DistanceSensor.class, "");
-        leftDist = map.tryGet(DistanceSensor.class, "");
-        rightCol = map.tryGet(ColorSensor.class, "");
-        leftCol = map.tryGet(ColorSensor.class, "");
+        backDist = map.tryGet(DistanceSensor.class, "backDist");
+        rightDist = map.tryGet(DistanceSensor.class, "rightDist");
+        leftDist = map.tryGet(DistanceSensor.class, "leftDist");
+        rightCol = map.tryGet(ColorSensor.class, "rightCol");
+        leftCol = map.tryGet(ColorSensor.class, "leftCol");
 
         //sensor objects
         backDistance = new OurDistanceSensor(backDist);
