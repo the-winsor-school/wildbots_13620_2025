@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.ArmLift;
 import org.firstinspires.ftc.teamcode.ArmLift.Claw;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class FullArmLift {
@@ -11,10 +12,16 @@ public class FullArmLift {
 
     public Claw claw;
 
-    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor, CRServo clawServo){
+    public TouchSensor topLiftLimit;
+    public TouchSensor bottomLiftLimit;
+
+    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor, CRServo clawServo, TouchSensor tLiftLimit, TouchSensor botLiftLimit){
         cascade = new GenericLiftMotor(cascadeMotor,0.8, 200);
         drawbridge = new GenericLiftMotor(drawbridgeMotor, 0.8, 200);
         claw = new Claw(clawServo);
+        topLiftLimit = tLiftLimit;
+        bottomLiftLimit = botLiftLimit;
+
     }
 
     public void moveLiftToPosition (LIFT_POSITION pos){
@@ -32,7 +39,9 @@ public class FullArmLift {
     }
 
     public void joystickControlCascade(float input) {
-        cascade.setMotorPower(input);
+        if(!(topLiftLimit.isPressed()) && input > 0 || !(bottomLiftLimit.isPressed()) && input < 0){
+            cascade.setMotorPower(input);
+        }
     }
 
     public void joystickControlDrawbridge(float input) {
