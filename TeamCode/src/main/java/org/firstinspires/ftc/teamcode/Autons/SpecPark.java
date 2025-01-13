@@ -28,6 +28,8 @@ public class SpecPark extends LinearOpMode {
 
         if (opModeIsActive()) {
 
+            robot.fullLift.drawbridge.runToPosition(4765);
+
             //moving forward to place spec
             driving.vertical(0.7);
             telemetry.addData("moving forward", "no loop");
@@ -43,7 +45,10 @@ public class SpecPark extends LinearOpMode {
             }
 
             //TODO robot places spec
-            //close claw
+            robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
+            while (!robot.fullLift.topLiftLimit.isPressed()){
+                robot.fullLift.cascade.setMotorPower(25);
+            }
             //lower lift
             //(stop lift?) open claw
             sleep(2000);

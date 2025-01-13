@@ -24,7 +24,7 @@ public class FullArmLift {
 
     }
 
-    public void moveLiftToPosition (LIFT_POSITION pos){
+    /*public void moveLiftToPosition (LIFT_POSITION pos){
         if(pos == LIFT_POSITION.RESET){
             cascade.runToPosition(0);
             drawbridge.runToPosition(0);
@@ -36,7 +36,7 @@ public class FullArmLift {
             //motor.setTargetPosition(); test for encoder
         }
         //add one more for PICKINGUP if RESET does not work
-    }
+    }*/
 
     public void joystickControlCascade(float input) {
         if(!(topLiftLimit.isPressed()) && input > 0 || !(bottomLiftLimit.isPressed()) && input < 0){
