@@ -32,11 +32,13 @@ public class FullArmLift {
     }
 
     public void joystickControlCascade(float input) {
-        cascade.setMotorPower(input);
+        float value = (Math.abs(input) < 0.1f) ? 0 : input;
+        cascade.setMotorPower(value);
     }
 
     public void joystickControlDrawbridge(float input) {
-        drawbridge.setMotorPower(input);
+        float value = (Math.abs(input) < 0.1f) ? 0 : input;
+        drawbridge.setMotorPower(value);
     }
 
 
