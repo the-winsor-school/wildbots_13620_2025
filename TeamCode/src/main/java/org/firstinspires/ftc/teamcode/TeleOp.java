@@ -34,9 +34,9 @@ public class TeleOp extends LinearOpMode {
             //joystick controls
 
             //have to fix cascade
-            robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+            robot.fullLift.joystickControlCascade(-gamepad2.left_stick_y);
 
-            robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y);
+            robot.fullLift.joystickControlDrawbridge(-gamepad2.right_stick_y);
 
             //levels - not tested yet
 /*            if (gamepad1.x)
@@ -83,7 +83,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("cascade position: ", robot.fullLift.cascade.getCurrentPosition());
             telemetry.addData("drawbridge position: ", robot.fullLift.drawbridge.getCurrentPosition());
 
-            telemetry.addLine("_________________LIMIT SWITCHES_________________");
+            telemetry.addLine("____________LIMIT SWITCHES_____________");
             telemetry.addData("top limit switch hit: ", robot.fullLift.topLiftLimit.isPressed());
             telemetry.addData("bottom limit switch hit: ", robot.fullLift.bottomLiftLimit.isPressed());
 

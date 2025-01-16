@@ -39,8 +39,21 @@ public class FullArmLift {
     }*/
 
     public void joystickControlCascade(float input) {
+
+        if (Math.abs(input) < 0.1f){
+            cascade.setMotorPower(0);
+        }
+
         if(!(topLiftLimit.isPressed()) && input > 0 || !(bottomLiftLimit.isPressed()) && input < 0){
             cascade.setMotorPower(input);
+        } else if(topLiftLimit.isPressed()){
+            while(topLiftLimit.isPressed()){
+                cascade.setMotorPower(-0.7f);
+            }
+        } else if(bottomLiftLimit.isPressed()){
+            while(bottomLiftLimit.isPressed()){
+                cascade.setMotorPower(0.7f);
+            }
         }
     }
 

@@ -47,11 +47,15 @@ public class SpecPark extends LinearOpMode {
             //TODO robot places spec
             robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
             while (!robot.fullLift.topLiftLimit.isPressed()){
-                robot.fullLift.cascade.setMotorPower(25);
+                robot.fullLift.cascade.setMotorPower(0.25f);
             }
-            //lower lift
-            //(stop lift?) open claw
+
+            robot.driving.vertical(0.25f);
+            sleep(1000);
+
+            robot.fullLift.cascade.setMotorPower(-0.5f);
             sleep(2000);
+            robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
 
             //moving back to the wall after placing the spec
             driving.vertical(-0.5);
