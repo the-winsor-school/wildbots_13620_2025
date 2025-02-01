@@ -68,22 +68,27 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("t: ", t);
 
             //wheels powers
+
             /*
             robot.printWheelPowers();
-             */
 
-            telemetry.addLine("_________________LIFT MOTORSTATES_________________");
+            telemetry.addData("red", robot.rightColor.getRed());
+            telemetry.addData("blue", robot.rightColor.getBlue());
+            telemetry.addData("green", robot.rightColor.getGreen());
+            */
+
+            telemetry.addLine("____________LIFT MOTOR STATES____________");
 
             telemetry.addData("Cascade: ", robot.fullLift.cascade.getMotorState());
             telemetry.addData("Drawbridge: ", robot.fullLift.drawbridge.getMotorState());
 
-            telemetry.addLine("_________________LIFT POSITIONS_________________");
+            telemetry.addLine("______________LIFT POSITIONS______________");
 
             telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
             telemetry.addData("cascade position: ", robot.fullLift.cascade.getCurrentPosition());
             telemetry.addData("drawbridge position: ", robot.fullLift.drawbridge.getCurrentPosition());
 
-            telemetry.addLine("____________LIMIT SWITCHES_____________");
+            telemetry.addLine("_____________LIMIT SWITCHES_______________");
             telemetry.addData("top limit switch hit: ", robot.fullLift.topLiftLimit.isPressed());
             telemetry.addData("bottom limit switch hit: ", robot.fullLift.bottomLiftLimit.isPressed());
 
