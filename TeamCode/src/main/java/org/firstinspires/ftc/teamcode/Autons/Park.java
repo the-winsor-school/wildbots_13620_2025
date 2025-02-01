@@ -19,14 +19,13 @@ public class Park extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-            robot.driving.horizontal(0.5);
-            sleep(200);
             while(!(robot.leftColor.redOrBlueTape() || robot.rightColor.redOrBlueTape())){
                 telemetry.addData("tape","not found");
                 telemetry.update();
                 robot.driving.horizontal(0.5f);
-                opMode.sleep(20);
-            }
+                sleep(20);
+            } 
+
             robot.driving.stop();
         }
 

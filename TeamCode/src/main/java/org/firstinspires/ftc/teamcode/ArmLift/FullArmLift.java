@@ -44,17 +44,15 @@ public class FullArmLift {
             cascade.setMotorPower(0);
         }
 
-        if(!(topLiftLimit.isPressed()) && input > 0 || !(bottomLiftLimit.isPressed()) && input < 0){
-            cascade.setMotorPower(input);
-        } else if(topLiftLimit.isPressed()){
-            while(topLiftLimit.isPressed()){
-                cascade.setMotorPower(-0.7f);
-            }
-        } else if(bottomLiftLimit.isPressed()){
-            while(bottomLiftLimit.isPressed()){
-                cascade.setMotorPower(0.7f);
-            }
+        if(input < 0 && topLiftLimit.isPressed()){
+                cascade.setMotorPower(0);
+                return;
         }
+        if(input > 0 && bottomLiftLimit.isPressed()){
+                cascade.setMotorPower(0);
+                return;
+        }
+        cascade.setMotorPower(input);
     }
 
     public void joystickControlDrawbridge(float input) {
