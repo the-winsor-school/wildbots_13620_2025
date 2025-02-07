@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ArmLift.Enums.ClawPosition;
+import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitSwitch;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
@@ -36,7 +37,7 @@ public class TeleOp extends LinearOpMode {
             //have to fix cascade
             robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
 
-            robot.fullLift.joystickControlDrawbridge(-gamepad2.right_stick_y);
+            robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y); //making it go up when pushing up
 
             //levels - not tested yet
 /*            if (gamepad1.x)
@@ -89,8 +90,10 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("drawbridge position: ", robot.fullLift.drawbridge.getCurrentPosition());
 
             telemetry.addLine("_____________LIMIT SWITCHES_______________");
-            telemetry.addData("top limit switch hit: ", robot.fullLift.topLiftLimit.isPressed());
-            telemetry.addData("bottom limit switch hit: ", robot.fullLift.bottomLiftLimit.isPressed());
+            telemetry.addData("top lift limit switch hit: ", robot.fullLift.liftLimit.isUpperHit());
+            telemetry.addData("bottom lift limit switch hit: ", robot.fullLift.liftLimit.isBottomHit());
+            telemetry.addData("top draw limit switch hit: ", robot.fullLift.drawLimit.isUpperHit());
+            telemetry.addData("bottom draw limit switch hit: ", robot.fullLift.drawLimit.isBottomHit());
 
             telemetry.update();
         }

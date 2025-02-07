@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.ArmLift;
 
 import org.firstinspires.ftc.teamcode.ArmLift.Claw;
+import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitSwitch;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -10,18 +11,46 @@ public class FullArmLift {
     public GenericLiftMotor cascade;
     public GenericLiftMotor drawbridge;
 
+    public DoubleLimitSwitch liftLimit;
+    public DoubleLimitSwitch drawLimit;
     public Claw claw;
 
-    public TouchSensor topLiftLimit;
-    public TouchSensor bottomLiftLimit;
-
-    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor, CRServo clawServo, TouchSensor tLiftLimit, TouchSensor botLiftLimit){
+    public FullArmLift(DcMotorEx cascadeMotor,
+                       DcMotorEx drawbridgeMotor,
+                       CRServo clawServo,
+                       TouchSensor topLiftLimit,
+                       TouchSensor botLiftLimit,
+                       TouchSensor topDrawLimit,
+                       TouchSensor botDrawLimit) {
         cascade = new GenericLiftMotor(cascadeMotor,0.8, 200);
         drawbridge = new GenericLiftMotor(drawbridgeMotor, 0.8, 200);
         claw = new Claw(clawServo);
-        topLiftLimit = tLiftLimit;
-        bottomLiftLimit = botLiftLimit;
+        liftLimit = new DoubleLimitSwitch(topLiftLimit, botLiftLimit);
+        drawLimit = new DoubleLimitSwitch(topDrawLimit, botDrawLimit);
 
+    }
+
+    public void joystickControlCascade(float input) {
+
+        if (Math.abs(input) < 0.1f){
+            input = 0;
+        }
+        if(!liftLimit.canGo(input)){
+            cascade.setMotorPower(0);
+            return;
+        }
+        cascade.setMotorPower(input);
+    }
+
+    public void joystickControlDrawbridge(float input) {
+        if (Math.abs(input) < 0.1f){
+            input = 0;
+        }
+        if(!drawLimit.canGo(input)){
+            drawbridge.setMotorPower(0);
+            return;
+        }
+        drawbridge.setMotorPower(input);
     }
 
     /*public void moveLiftToPosition (LIFT_POSITION pos){
@@ -37,28 +66,6 @@ public class FullArmLift {
         }
         //add one more for PICKINGUP if RESET does not work
     }*/
-
-    public void joystickControlCascade(float input) {
-
-        if (Math.abs(input) < 0.1f){
-            cascade.setMotorPower(0);
-        }
-
-        if(input < 0 && topLiftLimit.isPressed()){
-                cascade.setMotorPower(0);
-                return;
-        }
-        if(input > 0 && bottomLiftLimit.isPressed()){
-                cascade.setMotorPower(0);
-                return;
-        }
-        cascade.setMotorPower(input);
-    }
-
-    public void joystickControlDrawbridge(float input) {
-        drawbridge.setMotorPower(input);
-    }
-
 
     public enum LIFT_POSITION {
         RESET,
