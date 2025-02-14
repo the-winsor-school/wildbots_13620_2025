@@ -1,20 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.text.method.Touch;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
-import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitSwitch;
+import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitMotor;
 import org.firstinspires.ftc.teamcode.Sensors.OurColorSensor;
 import org.firstinspires.ftc.teamcode.Sensors.OurDistanceSensor;
 
@@ -67,8 +63,8 @@ public class Robot {
     public OurDistanceSensor leftDistance;
     public OurColorSensor rightColor;
     public OurColorSensor leftColor;
-    public DoubleLimitSwitch liftLimit;
-    public DoubleLimitSwitch drawLimit;
+    public DoubleLimitMotor liftLimit;
+    public DoubleLimitMotor drawLimit;
 
     //complex objects
     public FullArmLift fullLift;
@@ -116,8 +112,8 @@ public class Robot {
         leftDistance = new OurDistanceSensor(leftDist);
         rightColor = new OurColorSensor(rightCol);
         leftColor = new OurColorSensor(leftCol);
-        liftLimit = new DoubleLimitSwitch(topLiftLim, bottomLiftLim);
-        drawLimit = new DoubleLimitSwitch(topDrawLim, botDrawLim);
+        liftLimit = new DoubleLimitMotor(topLiftLim, bottomLiftLim);
+        drawLimit = new DoubleLimitMotor(topDrawLim, botDrawLim);
 
 
         //complex objects

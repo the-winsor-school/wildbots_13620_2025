@@ -1,17 +1,19 @@
 package org.firstinspires.ftc.teamcode.Sensors;
-import android.text.method.Touch;
-
-import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
 
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-public class DoubleLimitSwitch {
+import org.firstinspires.ftc.teamcode.ArmLift.GenericLiftMotor;
+
+public class DoubleLimitMotor {
     private TouchSensor topLimit;
     private TouchSensor bottomLimit;
 
-    public DoubleLimitSwitch(TouchSensor topLimit, TouchSensor bottomLimit) {
+    public final GenericLiftMotor motor;
+
+    public DoubleLimitMotor(TouchSensor topLimit, TouchSensor bottomLimit, GenericLiftMotor motor) {
         this.topLimit = topLimit;
         this.bottomLimit = bottomLimit;
+        this.motor  = motor;
     }
 
     public boolean isUpperHit() {return topLimit.isPressed();}
@@ -31,5 +33,14 @@ public class DoubleLimitSwitch {
         }
         return true;
     }
-
+    public void Go (float input) {
+        if (Math.abs(input) < 0.1f){
+            input = 0;
+        }
+        if(!this.canGo(input)){
+            motor.setMotorPower(0);
+            return;
+        }
+        motor.setMotorPower(input);
+    }
 }

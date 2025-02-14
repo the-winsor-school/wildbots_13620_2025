@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ArmLift.Enums.ClawPosition;
-import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitSwitch;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends LinearOpMode {
@@ -35,9 +34,9 @@ public class TeleOp extends LinearOpMode {
             //joystick controls
 
             //have to fix cascade
-            robot.fullLift.joystickControlCascade(gamepad2.left_stick_y);
+            robot.fullLift.Cascade.Go(gamepad2.left_stick_y);
 
-            robot.fullLift.joystickControlDrawbridge(gamepad2.right_stick_y); //making it go up when pushing up
+            robot.fullLift.drawBridge.Go(gamepad2.right_stick_y); //making it go up when pushing up
 
             //levels - not tested yet
 /*            if (gamepad1.x)
@@ -80,20 +79,20 @@ public class TeleOp extends LinearOpMode {
 
             telemetry.addLine("____________LIFT MOTOR STATES____________");
 
-            telemetry.addData("Cascade: ", robot.fullLift.cascade.getMotorState());
-            telemetry.addData("Drawbridge: ", robot.fullLift.drawbridge.getMotorState());
+            telemetry.addData("Cascade: ", robot.fullLift.Cascade.motor.getMotorState());
+            telemetry.addData("Drawbridge: ", robot.fullLift.drawBridge.motor.getMotorState());
 
             telemetry.addLine("______________LIFT POSITIONS______________");
 
             telemetry.addData("claw position: ", robot.fullLift.claw.getCurrentPosition());
-            telemetry.addData("cascade position: ", robot.fullLift.cascade.getCurrentPosition());
-            telemetry.addData("drawbridge position: ", robot.fullLift.drawbridge.getCurrentPosition());
+            telemetry.addData("cascade position: ", robot.fullLift.Cascade.motor.getCurrentPosition());
+            telemetry.addData("drawbridge position: ", robot.fullLift.drawBridge.motor.getCurrentPosition());
 
             telemetry.addLine("_____________LIMIT SWITCHES_______________");
-            telemetry.addData("top lift limit switch hit: ", robot.fullLift.liftLimit.isUpperHit());
-            telemetry.addData("bottom lift limit switch hit: ", robot.fullLift.liftLimit.isBottomHit());
-            telemetry.addData("top draw limit switch hit: ", robot.fullLift.drawLimit.isUpperHit());
-            telemetry.addData("bottom draw limit switch hit: ", robot.fullLift.drawLimit.isBottomHit());
+            telemetry.addData("top lift limit switch hit: ", robot.fullLift.Cascade.isUpperHit());
+            telemetry.addData("bottom lift limit switch hit: ", robot.fullLift.Cascade.isBottomHit());
+            telemetry.addData("top draw limit switch hit: ", robot.fullLift.drawBridge.isUpperHit());
+            telemetry.addData("bottom draw limit switch hit: ", robot.fullLift.drawBridge.isBottomHit());
 
             telemetry.update();
         }
