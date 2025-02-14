@@ -22,9 +22,9 @@ public class OurColorSensor {
 
     public OurColorSensor(ColorSensor sensor) {
         this.sensor = sensor;
-        redTapeThreshold = 2500;
-        blueTapeThreshold = 2500;
-        whiteTapeThreshold = 500;
+        redTapeThreshold = 2100;
+        blueTapeThreshold = 3975;
+        whiteTapeThreshold = 5000;
     }
 
     //tape detection

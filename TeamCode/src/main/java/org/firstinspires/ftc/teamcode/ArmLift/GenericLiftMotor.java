@@ -48,7 +48,7 @@ public class GenericLiftMotor {
         if (motor.getPower() > 0) {
             return MotorState.FORWARD;
         }
-        else if (motor.getPower() > 0) {
+        else if (motor.getPower() < 0) {
             return MotorState.REVERSE;
         }
         return MotorState.STOP;
