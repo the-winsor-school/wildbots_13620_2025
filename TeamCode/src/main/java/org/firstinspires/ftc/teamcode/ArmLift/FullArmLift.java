@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class FullArmLift {
 
-    public final DoubleLimitMotor Cascade;
-    public final DoubleLimitMotor drawBridge;
+    public final DoubleLimitMotor cascade;
+    public final DoubleLimitMotor drawbridge;
     public final Claw claw;
 
     public FullArmLift(DcMotorEx cascadeMotor,
@@ -20,16 +20,16 @@ public class FullArmLift {
                        TouchSensor topDrawLimit,
                        TouchSensor botDrawLimit) {
         claw = new Claw(clawServo);
-        Cascade = new DoubleLimitMotor(topLiftLimit, botLiftLimit, new GenericLiftMotor(cascadeMotor,0.8, 200));
-        drawBridge = new DoubleLimitMotor(topDrawLimit, botDrawLimit, new GenericLiftMotor(drawbridgeMotor, 0.8, 200));
+        cascade = new DoubleLimitMotor(topLiftLimit, botLiftLimit, new GenericLiftMotor(cascadeMotor,0.8, 200));
+        drawbridge = new DoubleLimitMotor(topDrawLimit, botDrawLimit, new GenericLiftMotor(drawbridgeMotor, 0.8, 200));
 
     }
 
 
     public void moveLiftToPosition (LIFT_POSITION pos){
         if(pos == LIFT_POSITION.RESET){
-            Cascade.motor.runToPosition(0);
-            drawBridge.motor.runToPosition(0);
+            cascade.motor.runToPosition(0);
+            drawbridge.motor.runToPosition(0);
         }
         if(pos == LIFT_POSITION.HIGHRUNG){
             //motor.setTargetPosition(); test for encoder

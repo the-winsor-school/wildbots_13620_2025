@@ -4,12 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
+import org.firstinspires.ftc.teamcode.ArmLift.GenericLiftMotor;
 import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitMotor;
 import org.firstinspires.ftc.teamcode.Sensors.OurColorSensor;
 import org.firstinspires.ftc.teamcode.Sensors.OurDistanceSensor;
@@ -48,10 +50,10 @@ public class Robot {
     private DistanceSensor leftDist;
     private ColorSensor rightCol;
     private ColorSensor leftCol;
-    private TouchSensor topLiftLim;
-    private TouchSensor bottomLiftLim;
-    private TouchSensor topDrawLim;
-    private TouchSensor botDrawLim;
+    public TouchSensor topLiftLim;
+    public TouchSensor bottomLiftLim;
+    public TouchSensor topDrawLim;
+    public TouchSensor botDrawLim;
 
     /**
      * itializtion of classes/objects
@@ -63,8 +65,6 @@ public class Robot {
     public OurDistanceSensor leftDistance;
     public OurColorSensor rightColor;
     public OurColorSensor leftColor;
-    public DoubleLimitMotor liftLimit;
-    public DoubleLimitMotor drawLimit;
 
     //complex objects
     public FullArmLift fullLift;
@@ -94,6 +94,9 @@ public class Robot {
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
 
+        drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        cascadeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         //sensors
         backDist = map.tryGet(DistanceSensor.class, "backDist");
         rightDist = map.tryGet(DistanceSensor.class, "rightDist");
@@ -112,9 +115,6 @@ public class Robot {
         leftDistance = new OurDistanceSensor(leftDist);
         rightColor = new OurColorSensor(rightCol);
         leftColor = new OurColorSensor(leftCol);
-        liftLimit = new DoubleLimitMotor(topLiftLim, bottomLiftLim);
-        drawLimit = new DoubleLimitMotor(topDrawLim, botDrawLim);
-
 
         //complex objects
         driving = new StrafeDrive(rf, rb, lf, lb, DcMotor.ZeroPowerBehavior.BRAKE);
