@@ -26,7 +26,7 @@ public class SpecPark extends LinearOpMode {
 
         if (opModeIsActive()) {
 
-            robot.fullLift.drawbridge.runToPosition(4765);
+            robot.fullLift.drawBridge.motor.runToPosition(4765);
 
             //moving forward to place spec
             driving.vertical(0.25);
@@ -54,7 +54,7 @@ public class SpecPark extends LinearOpMode {
             robot.driving.vertical(0.25f);
             sleep(1000);
 
-            robot.fullLift.cascade.setMotorPower(-0.5f);
+            robot.fullLift.Cascade.Go(-0.5f);
             sleep(2000);
             robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
 
