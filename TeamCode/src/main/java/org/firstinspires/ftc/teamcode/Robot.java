@@ -4,12 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
+import org.firstinspires.ftc.teamcode.ArmLift.GenericLiftMotor;
 import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitMotor;
 import org.firstinspires.ftc.teamcode.Sensors.OurColorSensor;
 import org.firstinspires.ftc.teamcode.Sensors.OurDistanceSensor;
@@ -63,8 +65,6 @@ public class Robot {
     public OurDistanceSensor leftDistance;
     public OurColorSensor rightColor;
     public OurColorSensor leftColor;
-    public DoubleLimitMotor liftLimit;
-    public DoubleLimitMotor drawLimit;
 
     //complex objects
     public FullArmLift fullLift;
@@ -91,6 +91,7 @@ public class Robot {
 
         //arm lift
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
+        cascadeMotor.setDirection(DcMotor.Direction.REVERSE);
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
 
@@ -112,8 +113,6 @@ public class Robot {
         leftDistance = new OurDistanceSensor(leftDist);
         rightColor = new OurColorSensor(rightCol);
         leftColor = new OurColorSensor(leftCol);
-        liftLimit = new DoubleLimitMotor(topLiftLim, bottomLiftLim);
-        drawLimit = new DoubleLimitMotor(topDrawLim, botDrawLim);
 
 
         //complex objects
