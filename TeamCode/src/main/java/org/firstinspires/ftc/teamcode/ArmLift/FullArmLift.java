@@ -10,6 +10,7 @@ public class FullArmLift {
 
     public final DoubleLimitMotor cascade;
     public final DoubleLimitMotor drawBridge;
+
     public final Claw claw;
 
     public FullArmLift(DcMotorEx cascadeMotor,

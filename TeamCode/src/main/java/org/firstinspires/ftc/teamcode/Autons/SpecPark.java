@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode.Autons;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -21,49 +22,48 @@ public class SpecPark extends LinearOpMode {
         robot = new Robot(this);
         driving = robot.driving;
 
+        robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
+
         waitForStart();
 
         if (opModeIsActive()) {
 
-            robot.fullLift.drawBridge.motor.runToPosition(4765);
+            while((!robot.topLiftLim.isPressed() || !robot.topDrawLim.isPressed())  && opModeIsActive()) {
+                robot.fullLift.cascade.Go(1);
+                robot.fullLift.drawBridge.Go(1);
+            }
 
-            //moving forward to place spec
-            driving.vertical(0.25);
-            telemetry.addData("moving forward", "no loop");
-            telemetry.update();
-            sleep(500);
 
+            robot.fullLift.drawBridge.Go(0);
+
+            //get specific distance while moving at a slower pace
+
+            sleep(5000);
             telemetry.addData("back distance:", robot.backDistance.getDistance());
             telemetry.update();
 
-            //get specific distance while moving at a slower pace
-            driving.vertical(0.25);
-            while (robot.backDistance.isDistanceGreater(54)) {
+            while (robot.backDistance.isDistanceLess(63) && opModeIsActive()) {
+                driving.vertical(.5);
                 telemetry.addData("back distance:", robot.backDistance.getDistance());
                 telemetry.update();
-                sleep(10);
             }
+            driving.stop();
 
-            //TODO robot places spec
-            /*while (!robot.fullLift.topLiftLimit.isPressed()){
-                robot.fullLift.claw.moveClaw(ClawPosition.CLOSE);
-                robot.fullLift.cascade.setMotorPower(0.25f);
-            }*/
+            sleep(5000);
 
-            robot.driving.vertical(0.25f);
-            sleep(1000);
-
-            robot.fullLift.cascade.Go(-0.5f);
+            robot.fullLift.cascade.Go(-1);
             sleep(2000);
+
+            robot.fullLift.cascade.Go(0);
+
             robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
 
             //moving back to the wall after placing the spec
-            driving.vertical(-0.25);
 
-            while (robot.backDistance.isDistanceLess(10)) {
+            while (robot.backDistance.isDistanceGreater(10)) {
+                driving.vertical(-0.5);
                 telemetry.addData("back distance:", robot.backDistance.getDistance());
                 telemetry.update();
-                sleep(10);
             }
 
             //moving to observation zone
@@ -77,7 +77,9 @@ public class SpecPark extends LinearOpMode {
             }
 
             robot.driving.stop();
+
         }
     }
 
 }
+

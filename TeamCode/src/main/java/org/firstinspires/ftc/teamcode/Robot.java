@@ -50,10 +50,10 @@ public class Robot {
     private DistanceSensor leftDist;
     private ColorSensor rightCol;
     private ColorSensor leftCol;
-    private TouchSensor topLiftLim;
-    private TouchSensor bottomLiftLim;
-    private TouchSensor topDrawLim;
-    private TouchSensor botDrawLim;
+    public TouchSensor topLiftLim;
+    public TouchSensor bottomLiftLim;
+    public TouchSensor topDrawLim;
+    public TouchSensor botDrawLim;
 
     /**
      * itializtion of classes/objects
@@ -94,6 +94,9 @@ public class Robot {
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
 
+        drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        cascadeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         //sensors
         backDist = map.tryGet(DistanceSensor.class, "backDist");
         rightDist = map.tryGet(DistanceSensor.class, "rightDist");
@@ -112,7 +115,6 @@ public class Robot {
         leftDistance = new OurDistanceSensor(leftDist);
         rightColor = new OurColorSensor(rightCol);
         leftColor = new OurColorSensor(leftCol);
-
 
         //complex objects
         driving = new StrafeDrive(rf, rb, lf, lb, DcMotor.ZeroPowerBehavior.BRAKE);
