@@ -91,7 +91,6 @@ public class Robot {
 
         //arm lift
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
-        cascadeMotor.setDirection(DcMotor.Direction.REVERSE);
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
 

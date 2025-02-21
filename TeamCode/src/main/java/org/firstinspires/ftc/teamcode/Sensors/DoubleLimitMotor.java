@@ -10,12 +10,18 @@ public class DoubleLimitMotor {
 
     public final GenericLiftMotor motor;
 
+    private boolean isReversed = false;
+
     public DoubleLimitMotor(TouchSensor topLimit, TouchSensor bottomLimit, GenericLiftMotor motor) {
         this.topLimit = topLimit;
         this.bottomLimit = bottomLimit;
         this.motor  = motor;
     }
 
+    public void setReversed(boolean reversed)
+    {
+        this.isReversed = reversed;
+    }
     public boolean isUpperHit() {return topLimit.isPressed();}
     public boolean isBottomHit() {return bottomLimit.isPressed();}
 
@@ -25,11 +31,23 @@ public class DoubleLimitMotor {
      * @return
      */
     public boolean canGo(float input) {
-        if(input < 0 && isUpperHit()){
-            return false;
+        if(!isReversed)
+        {
+            if(input < 0 && isUpperHit()){
+                return false;
+            }
+            if(input > 0 && isBottomHit()){
+                return false;
+            }
         }
-        if(input > 0 && isBottomHit()){
-            return false;
+        else
+        {
+            if(input > 0 && isUpperHit()){
+                return false;
+            }
+            if(input < 0 && isBottomHit()){
+                return false;
+            }
         }
         return true;
     }

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autons;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ArmLift.Enums.ClawPosition;
@@ -54,7 +53,7 @@ public class SpecPark extends LinearOpMode {
             robot.driving.vertical(0.25f);
             sleep(1000);
 
-            robot.fullLift.Cascade.Go(-0.5f);
+            robot.fullLift.cascade.Go(-0.5f);
             sleep(2000);
             robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
 
