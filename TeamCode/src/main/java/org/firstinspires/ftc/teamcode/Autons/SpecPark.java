@@ -28,33 +28,35 @@ public class SpecPark extends LinearOpMode {
 
         if (opModeIsActive()) {
 
-            while((!robot.topLiftLim.isPressed() || !robot.topDrawLim.isPressed())  && opModeIsActive()) {
-                robot.fullLift.cascade.Go(1);
-                robot.fullLift.drawBridge.Go(1);
+            while((robot.fullLift.cascade.canGo(0.5f) || robot.fullLift.drawBridge.canGo(0.25f) ) && opModeIsActive()) {
+                robot.fullLift.cascade.Go(0.5f);
+                robot.fullLift.drawBridge.Go(0.4f);
             }
-
 
             robot.fullLift.drawBridge.Go(0);
 
             //get specific distance while moving at a slower pace
 
-            sleep(5000);
+            sleep(2000);
             telemetry.addData("back distance:", robot.backDistance.getDistance());
             telemetry.update();
 
-            while (robot.backDistance.isDistanceLess(63) && opModeIsActive()) {
+            while (robot.backDistance.isDistanceLess(72) && opModeIsActive()) {
                 driving.vertical(.5);
                 telemetry.addData("back distance:", robot.backDistance.getDistance());
                 telemetry.update();
             }
             driving.stop();
 
-            sleep(5000);
+            sleep(1000);
 
             robot.fullLift.cascade.Go(-1);
-            sleep(2000);
+            sleep(2500);
+            robot.fullLift.drawBridge.Go(0.5f);
+            sleep(500);
 
             robot.fullLift.cascade.Go(0);
+            robot.fullLift.drawBridge.Go(0);
 
             robot.fullLift.claw.moveClaw(ClawPosition.OPEN);
 
@@ -67,13 +69,15 @@ public class SpecPark extends LinearOpMode {
             }
 
             //moving to observation zone
-            driving.horizontal(0.7);
-            sleep(5000);
-            driving.horizontal(0.5);
+            robot.driving.turn(-0.75);
+            sleep(1500);
+            robot.driving.vertical(0.75f);
+            sleep(1500);
             while(!(robot.leftColor.redOrBlueTape() || robot.rightColor.redOrBlueTape())){
-                telemetry.addData("tape","not found");
+                telemetry.addData("tape", "not found");
                 telemetry.update();
-                sleep(20);
+                robot.driving.vertical(0.25f);
+                sleep(10);
             }
 
             robot.driving.stop();
