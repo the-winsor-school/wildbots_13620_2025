@@ -10,7 +10,7 @@ public class StrafeDrive {
     private DcMotor lf;
     private DcMotor lb;
 
-    private double speed = 0.5;
+    private double speed = 0.25;
 
     public StrafeDrive(DcMotor rf, DcMotor rb, DcMotor lf, DcMotor lb, DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         this.rf = rf;
