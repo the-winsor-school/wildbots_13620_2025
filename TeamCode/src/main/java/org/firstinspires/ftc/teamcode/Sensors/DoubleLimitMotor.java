@@ -13,8 +13,8 @@ public class DoubleLimitMotor {
     private boolean isReversed = false;
 
     public DoubleLimitMotor(TouchSensor topLimit, TouchSensor bottomLimit, GenericLiftMotor motor) {
-        this.topLimit = bottomLimit;
-        this.bottomLimit = topLimit;
+        this.topLimit = topLimit;
+        this.bottomLimit = bottomLimit;
         this.motor  = motor;
     }
 
