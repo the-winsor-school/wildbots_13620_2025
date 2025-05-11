@@ -20,9 +20,9 @@ public class TeleOp extends LinearOpMode {
             //             MAIN CONTROLLER
             //_______________________________________________
             
-            float x = gamepad1.right_stick_x;
-            float y = -gamepad1.right_stick_y; //inputs from joystick are opposite
-            float t = gamepad1.left_stick_x;
+            float x = gamepad1.left_stick_x;
+            float y = -gamepad1.left_stick_y; //inputs from joystick are opposite
+            float t = gamepad1.right_stick_x;
 
             robot.driving.joystickDrive(x, y, t);
 
