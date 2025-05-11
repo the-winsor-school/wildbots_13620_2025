@@ -61,4 +61,8 @@ public class DoubleLimitMotor {
         }
         motor.setMotorPower(input);
     }
+
+    public void noLimitGo(float input) {
+        motor.setMotorPower(input);
+    }
 }
