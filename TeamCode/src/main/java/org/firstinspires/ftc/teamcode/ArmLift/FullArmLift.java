@@ -1,26 +1,37 @@
 package org.firstinspires.ftc.teamcode.ArmLift;
 
-import org.firstinspires.ftc.teamcode.ArmLift.Claw;
+import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitMotor;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class FullArmLift {
-    public GenericLiftMotor cascade;
-    public GenericLiftMotor drawbridge;
 
-    public Claw claw;
+    public final DoubleLimitMotor cascade;
+    public final DoubleLimitMotor drawBridge;
 
-    public FullArmLift(DcMotorEx cascadeMotor, DcMotorEx drawbridgeMotor, CRServo clawServo){
-        cascade = new GenericLiftMotor(cascadeMotor,0.8, 200);
-        drawbridge = new GenericLiftMotor(drawbridgeMotor, 0.8, 200);
+    public final Claw claw;
+
+    public FullArmLift(DcMotorEx cascadeMotor,
+                       DcMotorEx drawbridgeMotor,
+                       CRServo clawServo,
+                       TouchSensor topLiftLimit,
+                       TouchSensor botLiftLimit,
+                       TouchSensor topDrawLimit,
+                       TouchSensor botDrawLimit) {
         claw = new Claw(clawServo);
+        cascade = new DoubleLimitMotor(botLiftLimit, topLiftLimit, new GenericLiftMotor(cascadeMotor,0.8, 200));
+        drawBridge = new DoubleLimitMotor(topDrawLimit, botDrawLimit, new GenericLiftMotor(drawbridgeMotor, 0.8, 200));
+
+        cascade.setReversed(true);
     }
+
 
     public void moveLiftToPosition (LIFT_POSITION pos){
         if(pos == LIFT_POSITION.RESET){
-            cascade.runToPosition(0);
-            drawbridge.runToPosition(0);
+            cascade.motor.runToPosition(0);
+            drawBridge.motor.runToPosition(0);
         }
         if(pos == LIFT_POSITION.HIGHRUNG){
             //motor.setTargetPosition(); test for encoder
@@ -29,15 +40,9 @@ public class FullArmLift {
             //motor.setTargetPosition(); test for encoder
         }
         //add one more for PICKINGUP if RESET does not work
+
     }
 
-    public void joystickControlCascade(float input) {
-        cascade.setMotorPower(input);
-    }
-
-    public void joystickControlDrawbridge(float input) {
-        drawbridge.setMotorPower(input);
-    }
 
 
     public enum LIFT_POSITION {

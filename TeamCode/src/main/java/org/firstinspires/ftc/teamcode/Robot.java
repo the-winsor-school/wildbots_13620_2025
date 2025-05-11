@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,10 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.ArmLift.FullArmLift;
+import org.firstinspires.ftc.teamcode.ArmLift.GenericLiftMotor;
+import org.firstinspires.ftc.teamcode.Sensors.DoubleLimitMotor;
 import org.firstinspires.ftc.teamcode.Sensors.OurColorSensor;
 import org.firstinspires.ftc.teamcode.Sensors.OurDistanceSensor;
 
@@ -50,6 +50,10 @@ public class Robot {
     private DistanceSensor leftDist;
     private ColorSensor rightCol;
     private ColorSensor leftCol;
+    public TouchSensor topLiftLim;
+    public TouchSensor bottomLiftLim;
+    public TouchSensor topDrawLim;
+    public TouchSensor botDrawLim;
 
     /**
      * itializtion of classes/objects
@@ -82,20 +86,28 @@ public class Robot {
         lf = map.tryGet(DcMotor.class, "lf");
         lb = map.tryGet(DcMotor.class, "lb");
 
-        rb.setDirection(DcMotor.Direction.REVERSE);
-        lf.setDirection(DcMotor.Direction.REVERSE);
+        rf.setDirection(DcMotor.Direction.REVERSE);
+        lb.setDirection(DcMotor.Direction.REVERSE);
 
         //arm lift
         cascadeMotor = map.tryGet(DcMotorEx.class, "cascadeMotor");
         drawbridgeMotor = map.tryGet(DcMotorEx.class, "drawbridge");
         clawServo = map.tryGet(CRServo.class, "servo");
-        
+
+        drawbridgeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        cascadeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         //sensors
-        backDist = map.tryGet(DistanceSensor.class, "");
-        rightDist = map.tryGet(DistanceSensor.class, "");
-        leftDist = map.tryGet(DistanceSensor.class, "");
-        rightCol = map.tryGet(ColorSensor.class, "");
-        leftCol = map.tryGet(ColorSensor.class, "");
+        backDist = map.tryGet(DistanceSensor.class, "backDist");
+        rightDist = map.tryGet(DistanceSensor.class, "rightDist");
+        leftDist = map.tryGet(DistanceSensor.class, "leftDist");
+        rightCol = map.tryGet(ColorSensor.class, "rightCol");
+        leftCol = map.tryGet(ColorSensor.class, "leftCol");
+
+        topLiftLim = map.tryGet(TouchSensor.class, "topLiftLimit");
+        bottomLiftLim = map.tryGet(TouchSensor.class, "bottomLiftLimit");
+        topDrawLim = map.tryGet(TouchSensor.class, "topDrawLimit");
+        botDrawLim = map.tryGet(TouchSensor.class, "botDrawLimit");
 
         //sensor objects
         backDistance = new OurDistanceSensor(backDist);
@@ -105,8 +117,8 @@ public class Robot {
         leftColor = new OurColorSensor(leftCol);
 
         //complex objects
-        driving = new StrafeDrive(rf, rb, lf, lb);
-        fullLift = new FullArmLift(cascadeMotor, drawbridgeMotor, clawServo);
+        driving = new StrafeDrive(rf, rb, lf, lb, DcMotor.ZeroPowerBehavior.BRAKE);
+        fullLift = new FullArmLift(cascadeMotor, drawbridgeMotor, clawServo, topLiftLim, bottomLiftLim, topDrawLim, botDrawLim);
     }
 
     public void printWheelPowers() {
@@ -115,4 +127,11 @@ public class Robot {
         opMode.telemetry.addData("rb: ", rb.getPower());
         opMode.telemetry.addData("lb: ", lb.getPower());
     }
+
+    public void printColorValues(OurColorSensor sensor) {
+        opMode.telemetry.addData("red: ", sensor.getRed());
+        opMode.telemetry.addData("green: ", sensor.getGreen());
+        opMode.telemetry.addData("blue: ", sensor.getBlue());
+    }
+
 }
